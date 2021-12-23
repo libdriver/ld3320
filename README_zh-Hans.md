@@ -6,45 +6,45 @@
 
 [English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
 
-Ld3320 is a special chip for speech recognition. The chip integrates speech recognition processor and some external circuits, including AD, DA converter, microphone interface, voice output interface and so on. This chip does not need any auxiliary chips such as FLASH, RAM, etc. it can be directly integrated into the existing products to realize the voice recognition / voice control / human-computer dialogue function. The key words list can be edited dynamically. The chip is used in induction cooker, microwave oven, smart home appliance operation, navigator, MP3, MP4, vending machine, public lighting system, health system and smart home voice control.
+LD3320 芯片是一款“语音识别”专用芯片。该芯片集成了语音识别处理器和一些外部电路，包括AD、DA 转换器、麦克风接口、声音输出接口等。本芯片不需要外接任何的辅助芯片如Flash、RAM 等，直接集成在现有的产品中即可以实现语音识别/声控/人机对话功能。并且识别的关键词语列表是可以任意动态编辑的。该芯片被应用于电磁炉、微波炉、智能家电操作、导航仪、 MP3、MP4 、自动售货机、公共照明系统、卫生系统和智能家居声控等。
 
-LibDriver LD3320 is the full function driver of LD3320 launched by LibDriver.It provides voice recognition, MP3 playback and other functions.
+LibDriver LD3320 是LibDriver推出的LD3320的全功能驱动，该驱动提供语音识别、MP3播放等功能。
 
-### Table of Contents
+### 目录
 
-  - [Instruction](#Instruction)
-  - [Install](#Install)
-  - [Usage](#Usage)
+  - [说明](#说明)
+  - [安装](#安装)
+  - [使用](#使用)
     - [example asr](#example-asr)
     - [example mp3](#example-mp3)
-  - [Document](#Document)
-  - [Contributing](#Contributing)
-  - [License](#License)
-  - [Contact Us](#Contact-Us)
+  - [文档](#文档)
+  - [贡献](#贡献)
+  - [版权](#版权)
+  - [联系我们](#联系我们)
 
-### Instruction
+### 说明
 
-/src includes LibDriver LD3320 source files.
+/src目录包含了LibDriver LD3320的源文件。
 
-/interface includes LibDriver LD3320 SPI platform independent template。
+/interface目录包含了LibDriver LD3320与平台无关的SPI总线模板。
 
-/test includes LibDriver LD3320 driver test code and this code can test the chip necessary function simply。
+/test目录包含了LibDriver LD3320驱动测试程序，该程序可以简单的测试芯片必要功能。
 
-/example includes LibDriver LD3320 sample code.
+/example目录包含了LibDriver LD3320编程范例。
 
-/doc includes LibDriver LD3320 offline document.
+/doc目录包含了LibDriver LD3320离线文档。
 
-/datasheet includes LD3320 datasheet。
+/datasheet目录包含了LD3320数据手册。
 
-/project includes the common Linux and MCU development board sample code. All projects use the shell script to debug the driver and the detail instruction can be found in each project's README.md.
+/project目录包含了常用Linux与单片机开发板的工程样例。所有工程均采用shell脚本作为调试方法，详细内容可参考每个工程里面的README.md。
 
-### Install
+### 安装
 
-Reference /interface SPI platform independent template and finish your platform SPI driver.
+参考/interface目录下与平台无关的SPI总线模板，完成指定平台的SPI总线驱动。
 
-Add /src, /interface and /example to your project.
+将/src目录，/interface目录和/example目录加入工程。
 
-### Usage
+### 使用
 
 #### example asr
 
@@ -224,60 +224,28 @@ gpio_interrupt_deinit();
 return 0;
 ```
 
-### Document
+### 文档
 
-Online documents: https://www.libdriver.com/docs/ld3320/index.html
+在线文档: https://www.libdriver.com/docs/ld3320/index.html
 
-Offline documents: /doc/html/index.html
+离线文档: /doc/html/index.html
 
-### Contributing
+### 贡献
 
-Please sent an e-mail to lishifenging@outlook.com
+请联系lishifenging@outlook.com
 
-### License
+### 版权
 
-Copyright (c) 2015 - present LibDriver All rights reserved
+版权 (c) 2015 - 现在 LibDriver 版权所有
 
+MIT 许可证（MIT）
 
+特此免费授予任何获得本软件副本和相关文档文件（下称“软件”）的人不受限制地处置该软件的权利，包括不受限制地使用、复制、修改、合并、发布、分发、转授许可和/或出售该软件副本，以及再授权被配发了本软件的人如上的权利，须在下列条件下：
 
-The MIT License (MIT) 
+上述版权声明和本许可声明应包含在该软件的所有副本或实质成分中。
 
+本软件是“如此”提供的，没有任何形式的明示或暗示的保证，包括但不限于对适销性、特定用途的适用性和不侵权的保证。在任何情况下，作者或版权持有人都不对任何索赔、损害或其他责任负责，无论这些追责来自合同、侵权或其它行为中，还是产生于、源于或有关于本软件以及本软件的使用或其它处置。
 
+### 联系我们
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-
-of this software and associated documentation files (the "Software"), to deal
-
-in the Software without restriction, including without limitation the rights
-
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-
-copies of the Software, and to permit persons to whom the Software is
-
-furnished to do so, subject to the following conditions: 
-
-
-
-The above copyright notice and this permission notice shall be included in all
-
-copies or substantial portions of the Software. 
-
-
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-
-SOFTWARE. 
-
-### Contact Us
-
-Please sent an e-mail to lishifenging@outlook.com
+请联系lishifenging@outlook.com
