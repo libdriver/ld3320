@@ -1,10 +1,12 @@
+[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+
 <div align=center>
 <img src="/doc/image/logo.png"/>
 </div>
 
 ## LibDriver LD3320
 
-[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+[![API](https://img.shields.io/badge/api-reference-blue)](https://www.libdriver.com/docs/ld3320/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
 
 Ld3320 is a special chip for speech recognition. The chip integrates speech recognition processor and some external circuits, including AD, DA converter, microphone interface, voice output interface and so on. This chip does not need any auxiliary chips such as FLASH, RAM, etc. it can be directly integrated into the existing products to realize the voice recognition / voice control / human-computer dialogue function. The key words list can be edited dynamically. The chip is used in induction cooker, microwave oven, smart home appliance operation, navigator, MP3, MP4, vending machine, public lighting system, health system and smart home voice control.
 

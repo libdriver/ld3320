@@ -1,10 +1,12 @@
+[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+
 <div align=center>
 <img src="/doc/image/logo.png"/>
 </div>
 
 ## LibDriver LD3320
 
-[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+[![API](https://img.shields.io/badge/api-reference-blue)](https://www.libdriver.com/docs/ld3320/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
 
 LD3320 芯片是一款“語音識別”專用芯片。該芯片集成了語音識別處理器和一些外部電路，包括AD、DA 轉換器、麥克風接口、聲音輸出接口等。本芯片不需要外接任何的輔助芯片如Flash、RAM 等，直接集成在現有的產品中即可以實現語音識別/聲控/人機對話功能。並且識別的關鍵詞語列表是可以任意動態編輯的。該芯片被應用於電磁爐、微波爐、智能家電操作、導航儀、 MP3、MP4 、自動售貨機、公共照明系統、衛生系統和智能家居聲控等。
 
