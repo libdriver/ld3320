@@ -59,7 +59,9 @@ extern "C"{
 /**
  * @brief ld3320 cystal frequence definition
  */
-#define LD3320_CYSTAL_MHZ        22.1184f
+#ifndef LD3320_CYSTAL_MHZ 
+    #define LD3320_CYSTAL_MHZ        22.1184f        /* 22.1184 MHz */
+#endif
 
 /**
  * @brief ld3320 mode enumeration definition
