@@ -47,7 +47,7 @@ static ld3320_handle_t gs_handle;        /**< ld3320 handle */
  */
 uint8_t ld3320_asr_irq_handler(void)
 {
-    if (ld3320_irq_handler(&gs_handle))
+    if (ld3320_irq_handler(&gs_handle) != 0)
     {
         return 1;
     }
@@ -65,9 +65,9 @@ uint8_t ld3320_asr_irq_handler(void)
  *            - 1 init failed
  * @note      none
  */
-uint8_t ld3320_asr_init(uint8_t (*receive_callback)(uint8_t type, uint8_t index, char *text))
+uint8_t ld3320_asr_init(void (*receive_callback)(uint8_t type, uint8_t index, char *text))
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* link driver */
     DRIVER_LD3320_LINK_INIT(&gs_handle, ld3320_handle_t);
@@ -88,7 +88,7 @@ uint8_t ld3320_asr_init(uint8_t (*receive_callback)(uint8_t type, uint8_t index,
     
     /* init chip */
     res = ld3320_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: init failed.\n");
         
@@ -97,30 +97,30 @@ uint8_t ld3320_asr_init(uint8_t (*receive_callback)(uint8_t type, uint8_t index,
     
     /* set asr mode */
     res = ld3320_set_mode(&gs_handle, LD3320_MODE_ASR);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mode failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set default mic gain */
     res = ld3320_set_mic_gain(&gs_handle, LD3320_ASR_DEFAULT_MIC_GAIN);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mic gain failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set default vad */
     res = ld3320_set_vad(&gs_handle, LD3320_ASR_DEFAULT_VAD);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set vad failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -139,10 +139,10 @@ uint8_t ld3320_asr_init(uint8_t (*receive_callback)(uint8_t type, uint8_t index,
  */
 uint8_t ld3320_asr_set_keys(char (*text)[50], uint8_t len)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     res = ld3320_set_key_words(&gs_handle, text, len);
-    if (res)
+    if (res != 0)
     {
         return 1;
     }
@@ -161,11 +161,11 @@ uint8_t ld3320_asr_set_keys(char (*text)[50], uint8_t len)
  */
 uint8_t ld3320_asr_start(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* start */
     res = ld3320_start(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         return 1;
     }
@@ -184,11 +184,11 @@ uint8_t ld3320_asr_start(void)
  */
 uint8_t ld3320_asr_stop(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* stop */
     res = ld3320_stop(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         return 1;
     }
@@ -207,11 +207,11 @@ uint8_t ld3320_asr_stop(void)
  */
 uint8_t ld3320_asr_deinit(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* asr deinit */
     res = ld3320_deinit(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         return 1;
     }

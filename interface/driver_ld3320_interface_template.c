@@ -203,18 +203,15 @@ uint8_t ld3320_interface_mp3_deinit(void)
 /**
  * @brief     interface receive callback
  * @param[in] type is the receive callback type
- * @param[in] index is the read size
+ * @param[in] ind is the index
  * @param[in] *text points to a text buffer
- * @return    status code
- *            - 0 success
- *            - 1 run failed
  * @note      none
  */
-uint8_t ld3320_interface_receive_callback(uint8_t type, uint8_t index, char *text)
+void ld3320_interface_receive_callback(uint8_t type, uint8_t ind, char *text)
 {
     if (type == LD3320_STATUS_ASR_FOUND_OK)
     {
-        ld3320_interface_debug_print("ld3320: irq index %d %s.\n", index, text);
+        ld3320_interface_debug_print("ld3320: irq index %d %s.\n", ind, text);
     }
     else if (type == LD3320_STATUS_ASR_FOUND_ZERO)
     {
@@ -236,17 +233,14 @@ uint8_t ld3320_interface_receive_callback(uint8_t type, uint8_t index, char *tex
     {
         ld3320_interface_debug_print("ld3320: irq unknow type.\n");
     }
-    
-    return 0;
 }
 
 /**
  * @brief     interface print format data
  * @param[in] fmt is the format data
- * @return    length of the send data
  * @note      none
  */
-uint16_t ld3320_interface_debug_print(char *fmt, ...)
+void ld3320_interface_debug_print(const char *const fmt, ...)
 {
-    return 0;
+    
 }

@@ -34,8 +34,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_LD3320_INTERFACE_H_
-#define _DRIVER_LD3320_INTERFACE_H_
+#ifndef DRIVER_LD3320_INTERFACE_H
+#define DRIVER_LD3320_INTERFACE_H
 
 #include "driver_ld3320.h"
 
@@ -145,10 +145,9 @@ void ld3320_interface_delay_us(uint32_t us);
 /**
  * @brief     interface print format data
  * @param[in] fmt is the format data
- * @return    length of the send data
  * @note      none
  */
-uint16_t ld3320_interface_debug_print(char *fmt, ...);
+void ld3320_interface_debug_print(const char *const fmt, ...);
 
 /**
  * @brief     interface mp3 init
@@ -185,14 +184,11 @@ uint8_t ld3320_interface_mp3_read(uint32_t addr, uint16_t size, uint8_t *buffer)
 /**
  * @brief     interface receive callback
  * @param[in] type is the receive callback type
- * @param[in] index is the read size
+ * @param[in] ind is the index
  * @param[in] *text points to a text buffer
- * @return    status code
- *            - 0 success
- *            - 1 run failed
  * @note      none
  */
-uint8_t ld3320_interface_receive_callback(uint8_t type, uint8_t index, char *text);
+void ld3320_interface_receive_callback(uint8_t type, uint8_t ind, char *text);
 
 /**
  * @}

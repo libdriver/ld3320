@@ -34,8 +34,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_LD3320_H_
-#define _DRIVER_LD3320_H_
+#ifndef DRIVER_LD3320_H
+#define DRIVER_LD3320_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -120,8 +120,8 @@ typedef struct ld3320_handle_s
     uint8_t (*reset_gpio_write)(uint8_t data);                                       /**< point to a reset_gpio_write function address */
     void (*delay_ms)(uint32_t ms);                                                   /**< point to a delay_ms function address */
     void (*delay_us)(uint32_t us);                                                   /**< point to a delay_us function address */
-    uint16_t (*debug_print)(char *fmt, ...);                                         /**< point to a debug_print function address */
-    uint8_t (*receive_callback)(uint8_t type, uint8_t index, char *text);            /**< point to a receive_callback function address */
+    void (*debug_print)(const char *const fmt, ...);                                 /**< point to a debug_print function address */
+    void (*receive_callback)(uint8_t type, uint8_t index, char *text);               /**< point to a receive_callback function address */
     uint8_t (*mp3_read_init)(char *name, uint32_t *size);                            /**< point to a mp3_read_init function address */
     uint8_t (*mp3_read)(uint32_t addr, uint16_t size, uint8_t *buffer);              /**< point to a mp3_read function address */
     uint8_t (*mp3_read_deinit)(void);                                                /**< point to a mp3_read_deinit function address */

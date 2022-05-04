@@ -48,7 +48,7 @@ static uint8_t gs_flag;                  /**< global flag */
  */
 uint8_t ld3320_asr_test_irq_handler(void)
 {
-    if (ld3320_irq_handler(&gs_handle))
+    if (ld3320_irq_handler(&gs_handle) != 0)
     {
         return 1;
     }
@@ -61,20 +61,17 @@ uint8_t ld3320_asr_test_irq_handler(void)
 /**
  * @brief     asr callback
  * @param[in] type is the irq type
- * @param[in] index is the asr index
+ * @param[in] i is the asr index
  * @param[in] *text points to a asr result buffer
- * @return    status code
- *            - 0 success
- *            - 1 run failed
  * @note      none
  */
-static uint8_t _callback(uint8_t type, uint8_t index, char *text)
+static void a_callback(uint8_t type, uint8_t i, char *text)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     if (type == LD3320_STATUS_ASR_FOUND_OK)
     {
-        ld3320_interface_debug_print("ld3320: detect index %d %s.\n", index, text);
+        ld3320_interface_debug_print("ld3320: detect index %d %s.\n", i, text);
         
         /* flag found */
         gs_flag = 1;
@@ -85,20 +82,15 @@ static uint8_t _callback(uint8_t type, uint8_t index, char *text)
         
         /* start */
         res = ld3320_start(&gs_handle);
-        if (res)
+        if (res != 0)
         {
             ld3320_interface_debug_print("ld3320: start failed.\n");
-            ld3320_deinit(&gs_handle);
-            
-            return 1;
         }
     }
     else
     {
         ld3320_interface_debug_print("ld3320: irq unknow type.\n");
     }
-    
-    return 0;
 }
 
 /**
@@ -110,8 +102,8 @@ static uint8_t _callback(uint8_t type, uint8_t index, char *text)
  */
 uint8_t ld3320_asr_test(void)
 {
-    volatile uint8_t res;
-    volatile uint32_t timeout;
+    uint8_t res;
+    uint32_t timeout;
     char text[1][50];
     ld3320_info_t info;
     
@@ -127,14 +119,14 @@ uint8_t ld3320_asr_test(void)
     DRIVER_LD3320_LINK_DELAY_MS(&gs_handle, ld3320_interface_delay_ms);
     DRIVER_LD3320_LINK_DELAY_US(&gs_handle, ld3320_interface_delay_us);
     DRIVER_LD3320_LINK_DEBUG_PRINT(&gs_handle, ld3320_interface_debug_print);
-    DRIVER_LD3320_LINK_DEBUG_RECEIVE_CALLBACK(&gs_handle, _callback);
+    DRIVER_LD3320_LINK_DEBUG_RECEIVE_CALLBACK(&gs_handle, a_callback);
     DRIVER_LD3320_LINK_MP3_READ_INT(&gs_handle, ld3320_interface_mp3_init);
     DRIVER_LD3320_LINK_MP3_READ_DEINT(&gs_handle, ld3320_interface_mp3_deinit);
     DRIVER_LD3320_LINK_MP3_READ(&gs_handle, ld3320_interface_mp3_read);
     
     /* get information */
     res = ld3320_info(&info);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get info failed.\n");
        
@@ -159,7 +151,7 @@ uint8_t ld3320_asr_test(void)
     
     /* init */
     res = ld3320_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: init failed.\n");
        
@@ -167,42 +159,42 @@ uint8_t ld3320_asr_test(void)
     }
     /* set asr mode */
     res = ld3320_set_mode(&gs_handle, LD3320_MODE_ASR);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mode failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set default mic gain */
     res = ld3320_set_mic_gain(&gs_handle, LD3320_MIC_GAIN_COMMON);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mic gain failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set default vad */
     res = ld3320_set_vad(&gs_handle, LD3320_VAD_COMMON);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set vad failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set key words */
-    memset(text, 0, sizeof(char) * 50);
-    memcpy(text, "ha lou", strlen("ha lou"));
+    memset(text[0], 0, sizeof(char) * 50);
+    strncpy((char *)text[0], "ha lou", strlen("ha lou"));
     res = ld3320_set_key_words(&gs_handle, text, 1);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set key words failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -212,18 +204,18 @@ uint8_t ld3320_asr_test(void)
     
     /* start */
     res = ld3320_start(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: start failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: please speak hello.\n");
     timeout = 10000;
-    while (timeout)
+    while (timeout != 0)
     {
-        if (gs_flag)
+        if (gs_flag != 0)
         {
             break;
         }
@@ -233,14 +225,14 @@ uint8_t ld3320_asr_test(void)
     if (timeout == 0)
     {
         ld3320_interface_debug_print("ld3320: wait timeout.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
 
     /* finish asr test */
     ld3320_interface_debug_print("ld3320: finish asr test.\n");
-    ld3320_deinit(&gs_handle);
+    (void)ld3320_deinit(&gs_handle);
     
     return 0;
 }

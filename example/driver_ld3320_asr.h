@@ -34,8 +34,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_LD3320_ASR_H_
-#define _DRIVER_LD3320_ASR_H_
+#ifndef DRIVER_LD3320_ASR_H
+#define DRIVER_LD3320_ASR_H
 
 #include "driver_ld3320_interface.h"
 
@@ -73,7 +73,7 @@ uint8_t ld3320_asr_irq_handler(void);
  *            - 1 init failed
  * @note      none
  */
-uint8_t ld3320_asr_init(uint8_t (*receive_callback)(uint8_t type, uint8_t index, char *text));
+uint8_t ld3320_asr_init(void (*receive_callback)(uint8_t type, uint8_t index, char *text));
 
 /**
  * @brief  asr example deinit

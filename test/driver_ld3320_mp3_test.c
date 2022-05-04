@@ -48,7 +48,7 @@ static uint8_t gs_flag;                  /**< global flag */
  */
 uint8_t ld3320_mp3_test_irq_handler(void)
 {
-    if (ld3320_irq_handler(&gs_handle))
+    if (ld3320_irq_handler(&gs_handle) != 0)
     {
         return 1;
     }
@@ -61,14 +61,11 @@ uint8_t ld3320_mp3_test_irq_handler(void)
 /**
  * @brief     mp3 callback
  * @param[in] type is the irq type
- * @param[in] index is the asr index
+ * @param[in] i is the asr index
  * @param[in] *text points to a asr result buffer
- * @return    status code
- *            - 0 success
- *            - 1 run failed
  * @note      none
  */
-static uint8_t _callback(uint8_t type, uint8_t index, char *text)
+static void a_callback(uint8_t type, uint8_t i, char *text)
 {
     if (type == LD3320_STATUS_MP3_LOAD)
     {
@@ -80,16 +77,10 @@ static uint8_t _callback(uint8_t type, uint8_t index, char *text)
         gs_flag = 1;
         ld3320_interface_debug_print("ld3320: irq mp3 end.\n");
     }
-    else if (type == LD3320_STATUS_MP3_LOAD)
-    {
-        ld3320_interface_debug_print("ld3320: irq mp3 load.\n");
-    }
     else
     {
         ld3320_interface_debug_print("ld3320: irq unknow type.\n");
     }
-    
-    return 0;
 }
 
 /**
@@ -102,8 +93,8 @@ static uint8_t _callback(uint8_t type, uint8_t index, char *text)
  */
 uint8_t ld3320_mp3_test(char *name)
 {
-    volatile uint8_t res;
-    volatile uint32_t timeout;
+    uint8_t res;
+    uint32_t timeout;
     ld3320_info_t info;
     
     /* link driver */
@@ -118,14 +109,14 @@ uint8_t ld3320_mp3_test(char *name)
     DRIVER_LD3320_LINK_DELAY_MS(&gs_handle, ld3320_interface_delay_ms);
     DRIVER_LD3320_LINK_DELAY_US(&gs_handle, ld3320_interface_delay_us);
     DRIVER_LD3320_LINK_DEBUG_PRINT(&gs_handle, ld3320_interface_debug_print);
-    DRIVER_LD3320_LINK_DEBUG_RECEIVE_CALLBACK(&gs_handle, _callback);
+    DRIVER_LD3320_LINK_DEBUG_RECEIVE_CALLBACK(&gs_handle, a_callback);
     DRIVER_LD3320_LINK_MP3_READ_INT(&gs_handle, ld3320_interface_mp3_init);
     DRIVER_LD3320_LINK_MP3_READ_DEINT(&gs_handle, ld3320_interface_mp3_deinit);
     DRIVER_LD3320_LINK_MP3_READ(&gs_handle, ld3320_interface_mp3_read);
     
     /* get information */
     res = ld3320_info(&info);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get info failed.\n");
        
@@ -150,7 +141,7 @@ uint8_t ld3320_mp3_test(char *name)
     
     /* init */
     res = ld3320_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: init failed.\n");
        
@@ -159,10 +150,10 @@ uint8_t ld3320_mp3_test(char *name)
     
     /* set mp3 mode */
     res = ld3320_set_mode(&gs_handle, LD3320_MODE_MP3);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mode failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -170,42 +161,42 @@ uint8_t ld3320_mp3_test(char *name)
     /* configure the mp3 */
     ld3320_interface_debug_print("ld3320: play %s.\n", name);
     res = ld3320_configure_mp3(&gs_handle, name);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: configure mp3 failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start */
     res = ld3320_start(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: start failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
     }
     
     /* set speaker volume */
     res = ld3320_set_speaker_volume(&gs_handle, 1);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set speaker volume failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
     }
     
     /* set headset volume */
     res = ld3320_set_headset_volume(&gs_handle, 1, 1);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set headset volume failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
     }
     
     timeout = 1000 * 60 * 10;
-    while (timeout)
+    while (timeout != 0)
     {
-        if (gs_flag)
+        if (gs_flag != 0)
         {
             break;
         }
@@ -215,14 +206,14 @@ uint8_t ld3320_mp3_test(char *name)
     if (timeout == 0)
     {
         ld3320_interface_debug_print("ld3320: wait timeout.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     
     /* finish mp3 test */
     ld3320_interface_debug_print("ld3320: finish mp3 test.\n");
-    ld3320_deinit(&gs_handle);
+    (void)ld3320_deinit(&gs_handle);
     
     return 0;
 }

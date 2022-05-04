@@ -67,18 +67,18 @@ ld3320: min temperature is -40.0C.
 ```shell
 ./ld3320 -p
 
-ld3320: SCK connected to GPIO11.
-ld3320: MISO connected to GPIO9.
-ld3320: MOSI connected to GPIO10.
-ld3320: CS connected to GPIO8.
+ld3320: SCK connected to GPIO11(BCM).
+ld3320: MISO connected to GPIO9(BCM).
+ld3320: MOSI connected to GPIO10(BCM).
+ld3320: CS connected to GPIO8(BCM).
 ld3320: SCK connected to P2.
 ld3320: MISO connected to P1.
 ld3320: MOSI connected to P0.
 ld3320: CS connected to CSB.
 ld3320: MD connected to VCC.
 ld3320: WRB connected to GND.
-ld3320: RSTB connected to GPIO27.
-ld3320: INTB connected to GPIO17.
+ld3320: RSTB connected to GPIO27(BCM).
+ld3320: INTB connected to GPIO17(BCM).
 ```
 
 ```shell

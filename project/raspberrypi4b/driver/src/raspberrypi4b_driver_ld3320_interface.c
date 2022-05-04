@@ -150,7 +150,7 @@ uint8_t ld3320_interface_mp3_init(char *name, uint32_t *size)
     {
         return 1;
     }
-    if (fseek(gs_fp, 0, SEEK_END))
+    if (fseek(gs_fp, 0, SEEK_END) != 0)
     {
         return 1;
     }
@@ -171,7 +171,7 @@ uint8_t ld3320_interface_mp3_init(char *name, uint32_t *size)
  */
 uint8_t ld3320_interface_mp3_read(uint32_t addr, uint16_t size, uint8_t *buffer)
 {
-    if (fseek(gs_fp, addr, SEEK_SET))
+    if (fseek(gs_fp, addr, SEEK_SET) != 0)
     {
         return 1;
     }
@@ -192,7 +192,7 @@ uint8_t ld3320_interface_mp3_read(uint32_t addr, uint16_t size, uint8_t *buffer)
  */
 uint8_t ld3320_interface_mp3_deinit(void)
 {
-    if (fclose(gs_fp))
+    if (fclose(gs_fp) != 0)
     {
         return 1;
     }
@@ -203,18 +203,15 @@ uint8_t ld3320_interface_mp3_deinit(void)
 /**
  * @brief     interface receive callback
  * @param[in] type is the receive callback type
- * @param[in] index is the read size
+ * @param[in] ind is the index
  * @param[in] *text points to a text buffer
- * @return    status code
- *            - 0 success
- *            - 1 run failed
  * @note      none
  */
-uint8_t ld3320_interface_receive_callback(uint8_t type, uint8_t index, char *text)
+void ld3320_interface_receive_callback(uint8_t type, uint8_t ind, char *text)
 {
     if (type == LD3320_STATUS_ASR_FOUND_OK)
     {
-        ld3320_interface_debug_print("ld3320: irq index %d %s.\n", index, text);
+        ld3320_interface_debug_print("ld3320: irq index %d %s.\n", ind, text);
     }
     else if (type == LD3320_STATUS_ASR_FOUND_ZERO)
     {
@@ -236,8 +233,6 @@ uint8_t ld3320_interface_receive_callback(uint8_t type, uint8_t index, char *tex
     {
         ld3320_interface_debug_print("ld3320: irq unknow type.\n");
     }
-    
-    return 0;
 }
 
 /**
@@ -280,13 +275,12 @@ uint8_t ld3320_interface_reset_gpio_write(uint8_t data)
 /**
  * @brief     interface print format data
  * @param[in] fmt is the format data
- * @return    length of the send data
  * @note      none
  */
-uint16_t ld3320_interface_debug_print(char *fmt, ...)
+void ld3320_interface_debug_print(const char *const fmt, ...)
 {
-    volatile char str[256];
-    volatile uint8_t len;
+    char str[256];
+    uint8_t len;
     va_list args;
     
     memset((char *)str, 0, sizeof(char)*256); 
@@ -295,12 +289,5 @@ uint16_t ld3320_interface_debug_print(char *fmt, ...)
     va_end(args);
     
     len = strlen((char *)str);
-    if (printf((uint8_t *)str, len))
-    {
-        return 0;
-    }
-    else
-    { 
-        return len;
-    }
+    (void)printf((uint8_t *)str, len);
 }

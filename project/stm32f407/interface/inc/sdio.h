@@ -34,8 +34,8 @@
  * </table>
  */
 
-#ifndef _SDIO_H_
-#define _SDIO_H_
+#ifndef SDIO_H
+#define SDIO_H
 
 #include "stm32f4xx_hal.h"
 

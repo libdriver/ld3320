@@ -1,4 +1,4 @@
-[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md) | [日本語](/README_ja.md) | [Deutsch](/README_de.md) | [한국어](/README_ko.md)
 
 <div align=center>
 <img src="/doc/image/logo.png"/>
@@ -6,11 +6,11 @@
 
 ## LibDriver LD3320
 
-[![API](https://img.shields.io/badge/api-reference-blue)](https://www.libdriver.com/docs/ld3320/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
+[![MISRA](https://img.shields.io/badge/misra-compliant-brightgreen.svg)](/misra/README.md) [![API](https://img.shields.io/badge/api-reference-blue.svg)](https://www.libdriver.com/docs/ld3320/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
 
 LD3320 芯片是一款“語音識別”專用芯片。該芯片集成了語音識別處理器和一些外部電路，包括AD、DA 轉換器、麥克風接口、聲音輸出接口等。本芯片不需要外接任何的輔助芯片如Flash、RAM 等，直接集成在現有的產品中即可以實現語音識別/聲控/人機對話功能。並且識別的關鍵詞語列表是可以任意動態編輯的。該芯片被應用於電磁爐、微波爐、智能家電操作、導航儀、 MP3、MP4 、自動售貨機、公共照明系統、衛生系統和智能家居聲控等。
 
-LibDriver LD3320 是LibDriver推出的LD3320的全功能驅動，該驅動提供語音識別、MP3播放等功能。
+LibDriver LD3320 是LibDriver推出的LD3320的全功能驅動，該驅動提供語音識別、MP3播放等功能並且它符合MISRA標準。
 
 ### 目錄
 
@@ -51,14 +51,14 @@ LibDriver LD3320 是LibDriver推出的LD3320的全功能驅動，該驅動提供
 #### example asr
 
 ```C
-volatile uint8_t res;
-volatile uint32_t timeout;
-volatile uint8_t g_flag;
-volatile char text[50];
+uint8_t res;
+uint32_t timeout;
+uint8_t g_flag;
+char text[50];
 
-static uint8_t _asr_callback(uint8_t type, uint8_t index, char *text)
+static void a_asr_callback(uint8_t type, uint8_t index, char *text)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     if (type == LD3320_STATUS_ASR_FOUND_OK)
     {
@@ -68,44 +68,42 @@ static uint8_t _asr_callback(uint8_t type, uint8_t index, char *text)
     else if (type == LD3320_STATUS_ASR_FOUND_ZERO)
     {
         ld3320_interface_debug_print("ld3320: irq zero.\n");
-        ld3320_asr_start();
+        (void)ld3320_asr_start();
     }
     else
     {
         ld3320_interface_debug_print("ld3320: irq unknow type.\n");
     }
-    
-    return 0;
 }
 
 res = gpio_interrupt_init();
-if (res)
+if (res != 0)
 {
     return 1;
 }
-res = ld3320_asr_init(_asr_callback);
-if (res)
+res = ld3320_asr_init(a_asr_callback);
+if (res != 0)
 {
-    gpio_interrupt_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
 memset(text, 0, sizeof(char) * 50);
-memcpy(text, "ni hao", strlen("ni hao"));
+strcpy(text, "ni hao";
 res = ld3320_asr_set_keys(text, 1);
-if (res)
+if (res != 0)
 {
-    ld3320_asr_deinit();
-    gpio_interrupt_deinit();
+    (void)ld3320_asr_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
 gs_flag = 0;
 res = ld3320_asr_start();
-if (res)
+if (res != 0)
 {
-    ld3320_asr_deinit();
-    gpio_interrupt_deinit();
+    (void)ld3320_asr_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
@@ -113,9 +111,9 @@ if (res)
 ...
 
 timeout = 1000 * 10;
-while (timeout)
+while (timeout != 0)
 {
-    if (gs_flag)
+    if (gs_flag != 0)
     {
         break;
     }
@@ -125,8 +123,8 @@ while (timeout)
 if (timeout == 0)
 {
     ld3320_interface_debug_print("ld3320: wait timeout.\n");
-    ld3320_asr_deinit();
-    gpio_interrupt_deinit();
+    (void)ld3320_asr_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
@@ -134,8 +132,8 @@ if (timeout == 0)
 ...
 
 ld3320_interface_debug_print("ld3320: found key word.\n");
-ld3320_asr_deinit();
-gpio_interrupt_deinit();
+(void)ld3320_asr_deinit();
+(void)gpio_interrupt_deinit();
 
 ...
 
@@ -145,11 +143,11 @@ return 0;
 #### example mp3
 
 ```C
-volatile uint8_t res;
-volatile uint32_t timeout;
-volatile uint8_t g_flag;
+uint8_t res;
+uint32_t timeout;
+uint8_t g_flag;
 
-static uint8_t _mp3_callback(uint8_t type, uint8_t index, char *text)
+static uint8_t a_mp3_callback(uint8_t type, uint8_t index, char *text)
 {
     if (type == LD3320_STATUS_MP3_LOAD)
     {
@@ -168,28 +166,26 @@ static uint8_t _mp3_callback(uint8_t type, uint8_t index, char *text)
     {
         ld3320_interface_debug_print("ld3320: irq unknow type.\n");
     }
-    
-    return 0;
 }
 
 res = gpio_interrupt_init();
-if (res)
+if (res != 0)
 {
     return 1;
 }
-res = ld3320_mp3_init("xxx.mp3", _mp3_callback);
-if (res)
+res = ld3320_mp3_init("xxx.mp3", a_mp3_callback);
+if (res != 0)
 {
-    gpio_interrupt_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
 gs_flag = 0;
 res = ld3320_mp3_start();
-if (res)
+if (res != 0)
 {
-    ld3320_mp3_deinit();
-    gpio_interrupt_deinit();
+    (void)ld3320_mp3_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
@@ -197,9 +193,9 @@ if (res)
 ...
     
 timeout = 1000 * 60 * 10;
-while (timeout)
+while (timeout != 0)
 {
-    if (gs_flag)
+    if (gs_flag != 0)
     {
         break;
     }
@@ -209,8 +205,8 @@ while (timeout)
 if (timeout == 0)
 {
     ld3320_interface_debug_print("ld3320: wait timeout.\n");
-    ld3320_mp3_deinit();
-    gpio_interrupt_deinit();
+    (void)ld3320_mp3_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
@@ -218,8 +214,8 @@ if (timeout == 0)
 ...
 
 ld3320_interface_debug_print("ld3320: play end.\n");
-ld3320_mp3_deinit();
-gpio_interrupt_deinit();
+(void)ld3320_mp3_deinit();
+(void)gpio_interrupt_deinit();
 
 ...
 

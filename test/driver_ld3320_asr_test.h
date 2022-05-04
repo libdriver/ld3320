@@ -34,8 +34,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_LD3320_ASR_TEST_H_
-#define _DRIVER_LD3320_ASR_TEST_H_
+#ifndef DRIVER_LD3320_ASR_TEST_H
+#define DRIVER_LD3320_ASR_TEST_H
 
 #include "driver_ld3320_interface.h"
 
