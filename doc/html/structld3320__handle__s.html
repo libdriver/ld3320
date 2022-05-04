@@ -116,10 +116,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:a406c9433252b7366de417b7a60915c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97ffc4fce945527bd6ab25a3596caef7"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structld3320__handle__s.html#a97ffc4fce945527bd6ab25a3596caef7">delay_us</a> )(uint32_t us)</td></tr>
 <tr class="separator:a97ffc4fce945527bd6ab25a3596caef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75f9f50c23e87e9407f9ec4e34bb42f2"><td class="memItemLeft" align="right" valign="top">uint16_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structld3320__handle__s.html#a75f9f50c23e87e9407f9ec4e34bb42f2">debug_print</a> )(char *fmt,...)</td></tr>
-<tr class="separator:a75f9f50c23e87e9407f9ec4e34bb42f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c177df3ef674485e8d8d2a313bafb79"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structld3320__handle__s.html#a8c177df3ef674485e8d8d2a313bafb79">receive_callback</a> )(uint8_t type, uint8_t index, char *<a class="el" href="structld3320__handle__s.html#ae5ab68ff3daa710c5fdcfb58187562d8">text</a>)</td></tr>
-<tr class="separator:a8c177df3ef674485e8d8d2a313bafb79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a769d5b3a6c14790a0e126e8fe70b384b"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structld3320__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a> )(const char *const fmt,...)</td></tr>
+<tr class="separator:a769d5b3a6c14790a0e126e8fe70b384b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95c8a4f3e083394c4e7d10c14ce094b7"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structld3320__handle__s.html#a95c8a4f3e083394c4e7d10c14ce094b7">receive_callback</a> )(uint8_t type, uint8_t index, char *<a class="el" href="structld3320__handle__s.html#ae5ab68ff3daa710c5fdcfb58187562d8">text</a>)</td></tr>
+<tr class="separator:a95c8a4f3e083394c4e7d10c14ce094b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2528a5e50e311b427097ab21989f2d45"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structld3320__handle__s.html#a2528a5e50e311b427097ab21989f2d45">mp3_read_init</a> )(char *name, uint32_t *<a class="el" href="structld3320__handle__s.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>)</td></tr>
 <tr class="separator:a2528a5e50e311b427097ab21989f2d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a401d37a833c6f29bdd164306d703e50b"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structld3320__handle__s.html#a401d37a833c6f29bdd164306d703e50b">mp3_read</a> )(uint32_t addr, uint16_t <a class="el" href="structld3320__handle__s.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>, uint8_t *buffer)</td></tr>
@@ -169,14 +169,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a75f9f50c23e87e9407f9ec4e34bb42f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75f9f50c23e87e9407f9ec4e34bb42f2">&#9670;&nbsp;</a></span>debug_print</h2>
+<a id="a769d5b3a6c14790a0e126e8fe70b384b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a769d5b3a6c14790a0e126e8fe70b384b">&#9670;&nbsp;</a></span>debug_print</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t(* debug_print) (char *fmt,...)</td>
+          <td class="memname">void(* debug_print) (const char *const fmt,...)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -356,14 +356,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a8c177df3ef674485e8d8d2a313bafb79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c177df3ef674485e8d8d2a313bafb79">&#9670;&nbsp;</a></span>receive_callback</h2>
+<a id="a95c8a4f3e083394c4e7d10c14ce094b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95c8a4f3e083394c4e7d10c14ce094b7">&#9670;&nbsp;</a></span>receive_callback</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t(* receive_callback) (uint8_t type, uint8_t index, char *<a class="el" href="structld3320__handle__s.html#ae5ab68ff3daa710c5fdcfb58187562d8">text</a>)</td>
+          <td class="memname">void(* receive_callback) (uint8_t type, uint8_t index, char *<a class="el" href="structld3320__handle__s.html#ae5ab68ff3daa710c5fdcfb58187562d8">text</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">

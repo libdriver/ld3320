@@ -47,7 +47,7 @@ static ld3320_handle_t gs_handle;        /**< ld3320 handle */
  */
 uint8_t ld3320_mp3_irq_handler(void)
 {
-    if (ld3320_irq_handler(&gs_handle))
+    if (ld3320_irq_handler(&gs_handle) != 0)
     {
         return 1;
     }
@@ -66,9 +66,9 @@ uint8_t ld3320_mp3_irq_handler(void)
  *            - 1 init failed
  * @note      none
  */
-uint8_t ld3320_mp3_init(char *name, uint8_t (*receive_callback)(uint8_t type, uint8_t index, char *text))
+uint8_t ld3320_mp3_init(char *name, void (*receive_callback)(uint8_t type, uint8_t index, char *text))
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* link driver */
     DRIVER_LD3320_LINK_INIT(&gs_handle, ld3320_handle_t);
@@ -89,7 +89,7 @@ uint8_t ld3320_mp3_init(char *name, uint8_t (*receive_callback)(uint8_t type, ui
     
     /* init chip */
     res = ld3320_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: init failed.\n");
         
@@ -98,20 +98,20 @@ uint8_t ld3320_mp3_init(char *name, uint8_t (*receive_callback)(uint8_t type, ui
     
     /* set mp3 mode */
     res = ld3320_set_mode(&gs_handle, LD3320_MODE_MP3);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mode failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     
     /* configure the mp3 */
     res = ld3320_configure_mp3(&gs_handle, name);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: configure mp3 failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -128,25 +128,25 @@ uint8_t ld3320_mp3_init(char *name, uint8_t (*receive_callback)(uint8_t type, ui
  */
 uint8_t ld3320_mp3_start(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* start */
     res = ld3320_start(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         return 1;
     }
     
     /* set speaker volume */
     res = ld3320_set_speaker_volume(&gs_handle, LD3320_MP3_DEFAULT_SPEAKER_VOLUME);
-    if (res)
+    if (res != 0)
     {
         return 1;
     }
     
     /* set headset volume */
     res = ld3320_set_headset_volume(&gs_handle, LD3320_MP3_DEFAULT_SPEAKER_VOLUME, LD3320_MP3_DEFAULT_SPEAKER_VOLUME);
-    if (res)
+    if (res != 0)
     {
         return 1;
     }
@@ -165,11 +165,11 @@ uint8_t ld3320_mp3_start(void)
  */
 uint8_t ld3320_mp3_stop(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* stop */
     res = ld3320_stop(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         return 1;
     }
@@ -188,11 +188,11 @@ uint8_t ld3320_mp3_stop(void)
  */
 uint8_t ld3320_mp3_deinit(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* mp3 deinit */
     res = ld3320_deinit(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         return 1;
     }

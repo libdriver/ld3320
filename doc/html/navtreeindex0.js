@@ -248,6 +248,6 @@ var NAVTREEINDEX0 =
 "group__ld3320__example__driver.html#ga6c34944ea3eb77fdc377afc291639dc4":[3,0,1,2,2],
 "group__ld3320__example__driver.html#ga6c34944ea3eb77fdc377afc291639dc4":[1,0,4,12],
 "group__ld3320__example__driver.html#ga6c34944ea3eb77fdc377afc291639dc4":[3,0,1,3,4],
-"group__ld3320__example__driver.html#ga72830e18d1c92930ba329490fb35f3e1":[1,0,4,11],
-"group__ld3320__example__driver.html#ga72830e18d1c92930ba329490fb35f3e1":[3,0,1,2,1]
+"group__ld3320__example__driver.html#ga75370bdd13188c7cf6e265b40f207eea":[3,0,1,3,0],
+"group__ld3320__example__driver.html#ga75370bdd13188c7cf6e265b40f207eea":[1,0,4,2]
 };

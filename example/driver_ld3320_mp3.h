@@ -34,8 +34,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_LD3320_MP3_H_
-#define _DRIVER_LD3320_MP3_H_
+#ifndef DRIVER_LD3320_MP3_H
+#define DRIVER_LD3320_MP3_H
 
 #include "driver_ld3320_interface.h"
 
@@ -72,7 +72,7 @@ uint8_t ld3320_mp3_irq_handler(void);
  *            - 1 init failed
  * @note      none
  */
-uint8_t ld3320_mp3_init(char *name, uint8_t (*receive_callback)(uint8_t type, uint8_t index, char *text));
+uint8_t ld3320_mp3_init(char *name, void (*receive_callback)(uint8_t type, uint8_t index, char *text));
 
 /**
  * @brief  mp3 example deinit

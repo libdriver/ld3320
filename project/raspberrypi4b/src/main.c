@@ -50,14 +50,11 @@ uint8_t (*g_gpio_irq)(void) = NULL;        /**< gpio irq */
  * @param[in] type is the irq type
  * @param[in] index is the asr index
  * @param[in] *text points to a asr result buffer
- * @return    status code
- *            - 0 success
- *            - 1 run failed
  * @note      none
  */
-static uint8_t _asr_callback(uint8_t type, uint8_t index, char *text)
+static void a_asr_callback(uint8_t type, uint8_t index, char *text)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     if (type == LD3320_STATUS_ASR_FOUND_OK)
     {
@@ -71,14 +68,16 @@ static uint8_t _asr_callback(uint8_t type, uint8_t index, char *text)
         ld3320_interface_debug_print("ld3320: irq zero.\n");
         
         /* start */
-        ld3320_asr_start();
+        res = ld3320_asr_start();
+        if (res != 0)
+        {
+            ld3320_interface_debug_print("ld3320: start failed.\n");
+        }
     }
     else
     {
         ld3320_interface_debug_print("ld3320: irq unknow type.\n");
     }
-    
-    return 0;
 }
 
 /**
@@ -86,12 +85,9 @@ static uint8_t _asr_callback(uint8_t type, uint8_t index, char *text)
  * @param[in] type is the irq type
  * @param[in] index is the asr index
  * @param[in] *text points to a asr result buffer
- * @return    status code
- *            - 0 success
- *            - 1 run failed
  * @note      none
  */
-static uint8_t _mp3_callback(uint8_t type, uint8_t index, char *text)
+static void a_mp3_callback(uint8_t type, uint8_t index, char *text)
 {
     if (type == LD3320_STATUS_MP3_LOAD)
     {
@@ -103,16 +99,10 @@ static uint8_t _mp3_callback(uint8_t type, uint8_t index, char *text)
         gs_flag = 1;
         ld3320_interface_debug_print("ld3320: irq mp3 end.\n");
     }
-    else if (type == LD3320_STATUS_MP3_LOAD)
-    {
-        ld3320_interface_debug_print("ld3320: irq mp3 load.\n");
-    }
     else
     {
         ld3320_interface_debug_print("ld3320: irq unknow type.\n");
     }
-    
-    return 0;
 }
 
 /**
@@ -154,18 +144,18 @@ uint8_t ld3320(uint8_t argc, char **argv)
         else if (strcmp("-p", argv[1]) == 0)
         {
             /* print pin connection */
-            ld3320_interface_debug_print("ld3320: SCK connected to GPIO11.\n");
-            ld3320_interface_debug_print("ld3320: MISO connected to GPIO9.\n");
-            ld3320_interface_debug_print("ld3320: MOSI connected to GPIO10.\n");
-            ld3320_interface_debug_print("ld3320: CS connected to GPIO8.\n");
+            ld3320_interface_debug_print("ld3320: SCK connected to GPIO11(BCM).\n");
+            ld3320_interface_debug_print("ld3320: MISO connected to GPIO9(BCM).\n");
+            ld3320_interface_debug_print("ld3320: MOSI connected to GPIO10(BCM).\n");
+            ld3320_interface_debug_print("ld3320: CS connected to GPIO8(BCM).\n");
             ld3320_interface_debug_print("ld3320: SCK connected to P2.\n");
             ld3320_interface_debug_print("ld3320: MISO connected to P1.\n");
             ld3320_interface_debug_print("ld3320: MOSI connected to P0.\n");
             ld3320_interface_debug_print("ld3320: CS connected to CSB.\n");
             ld3320_interface_debug_print("ld3320: MD connected to VCC.\n");
             ld3320_interface_debug_print("ld3320: WRB connected to GND.\n");
-            ld3320_interface_debug_print("ld3320: RSTB connected to GPIO27.\n");
-            ld3320_interface_debug_print("ld3320: INTB connected to GPIO17.\n");
+            ld3320_interface_debug_print("ld3320: RSTB connected to GPIO27(BCM).\n");
+            ld3320_interface_debug_print("ld3320: INTB connected to GPIO17(BCM).\n");
             
             return 0;
         }
@@ -199,10 +189,10 @@ uint8_t ld3320(uint8_t argc, char **argv)
             /* reg test */
             if (strcmp("reg", argv[2]) == 0)
             {
-                volatile uint8_t res;
+                uint8_t res;
                 
                 res = ld3320_register_test();
-                if (res)
+                if (res != 0)
                 {
                     return 1;
                 }
@@ -213,24 +203,24 @@ uint8_t ld3320(uint8_t argc, char **argv)
             /* asr test */
             else if (strcmp("asr", argv[2]) == 0)
             {
-                volatile uint8_t res;
+                uint8_t res;
                 
                 res = gpio_interrupt_init();
-                if (res)
+                if (res != 0)
                 {
                     return 1;
                 }
                 g_gpio_irq = ld3320_asr_test_irq_handler;
                 res = ld3320_asr_test();
-                if (res)
+                if (res != 0)
                 {
                     g_gpio_irq = NULL;
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     
                     return 1;
                 }
                 g_gpio_irq = NULL;
-                gpio_interrupt_deinit();
+                (void)gpio_interrupt_deinit();
                 
                 return 0;
             }
@@ -259,10 +249,10 @@ uint8_t ld3320(uint8_t argc, char **argv)
                 /* -f */
                 if (strcmp("-f", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
-                    volatile uint16_t i, len;
+                    uint8_t res;
+                    uint16_t i, len;
                     
-                    len = strlen(argv[4]);
+                    len = (uint16_t)strlen(argv[4]);
                     for (i = 0; i < len; i++)
                     {
                         if (argv[4][i] == '-')
@@ -272,21 +262,21 @@ uint8_t ld3320(uint8_t argc, char **argv)
                     }
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
                     g_gpio_irq = ld3320_mp3_test_irq_handler;
                     res = ld3320_mp3_test(argv[4]);
-                    if (res)
+                    if (res != 0)
                     {
                         g_gpio_irq = NULL;
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         
                         return 1;
                     }
                     g_gpio_irq = NULL;
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     
                     return 0;
                 }
@@ -314,11 +304,11 @@ uint8_t ld3320(uint8_t argc, char **argv)
                 /* -f */
                 if (strcmp("-f", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
-                    volatile uint16_t i, len;
-                    volatile uint32_t timeout;
+                    uint8_t res;
+                    uint16_t i, len;
+                    uint32_t timeout;
                     
-                    len = strlen(argv[4]);
+                    len = (uint16_t)strlen(argv[4]);
                     for (i = 0; i < len; i++)
                     {
                         if (argv[4][i] == '-')
@@ -328,34 +318,34 @@ uint8_t ld3320(uint8_t argc, char **argv)
                     }
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
                     g_gpio_irq = ld3320_mp3_irq_handler;
                     ld3320_interface_debug_print("ld3320: play %s.\n", argv[4]);
-                    res = ld3320_mp3_init(argv[4], _mp3_callback);
-                    if (res)
+                    res = ld3320_mp3_init(argv[4], a_mp3_callback);
+                    if (res != 0)
                     {
                         g_gpio_irq = NULL;
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         
                         return 1;
                     }
                     gs_flag = 0;
                     res = ld3320_mp3_start();
-                    if (res)
+                    if (res != 0)
                     {
-                        ld3320_mp3_deinit();
+                        (void)ld3320_mp3_deinit();
                         g_gpio_irq = NULL;
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         
                         return 1;
                     }
                     timeout = 1000 * 60 * 10;
-                    while (timeout)
+                    while (timeout != 0)
                     {
-                        if (gs_flag)
+                        if (gs_flag != 0)
                         {
                             break;
                         }
@@ -365,14 +355,16 @@ uint8_t ld3320(uint8_t argc, char **argv)
                     if (timeout == 0)
                     {
                         ld3320_interface_debug_print("ld3320: wait timeout.\n");
-                        ld3320_mp3_deinit();
+                        (void)ld3320_mp3_deinit();
+                        g_gpio_irq = NULL;
+                        (void)gpio_interrupt_deinit();
                         
                         return 1;
                     }
                     ld3320_interface_debug_print("ld3320: play end.\n");
-                    ld3320_mp3_deinit();
+                    (void)ld3320_mp3_deinit();
                     g_gpio_irq = NULL;
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     
                     return 0;
                 }
@@ -390,12 +382,12 @@ uint8_t ld3320(uint8_t argc, char **argv)
                 /* -k */
                 if (strcmp("-k", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
+                    uint8_t res;
                     char text[1][50];
-                    volatile uint16_t i, len;
-                    volatile uint32_t timeout;
+                    uint16_t i, len;
+                    uint32_t timeout;
                     
-                    len = strlen(argv[4]);
+                    len = (uint16_t)strlen(argv[4]);
                     for (i = 0; i < len; i++)
                     {
                         if (argv[4][i] == '-')
@@ -405,45 +397,45 @@ uint8_t ld3320(uint8_t argc, char **argv)
                     }
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
                     g_gpio_irq = ld3320_asr_irq_handler; 
                     ld3320_interface_debug_print("ld3320: key word is %s.\n", argv[4]);
-                    res = ld3320_asr_init(_asr_callback);
-                    if (res)
+                    res = ld3320_asr_init(a_asr_callback);
+                    if (res != 0)
                     {
                         g_gpio_irq = NULL;
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         
                         return 1;
                     }
                     memset(text, 0, sizeof(char) * 50);
                     memcpy(text, argv[4], strlen(argv[4]));
                     res = ld3320_asr_set_keys(text, 1);
-                    if (res)
+                    if (res != 0)
                     {
-                        ld3320_asr_deinit();
+                        (void)ld3320_asr_deinit();
                         g_gpio_irq = NULL;
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         
                         return 1;
                     }
                     gs_flag = 0;
                     res = ld3320_asr_start();
-                    if (res)
+                    if (res != 0)
                     {
-                        ld3320_asr_deinit();
+                        (void)ld3320_asr_deinit();
                         g_gpio_irq = NULL;
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         
                         return 1;
                     }
                     timeout = 1000 * 10;
-                    while (timeout)
+                    while (timeout != 0)
                     {
-                        if (gs_flag)
+                        if (gs_flag != 0)
                         {
                             break;
                         }
@@ -453,14 +445,16 @@ uint8_t ld3320(uint8_t argc, char **argv)
                     if (timeout == 0)
                     {
                         ld3320_interface_debug_print("ld3320: wait timeout.\n");
-                        ld3320_asr_deinit();
-                        
+                        (void)ld3320_asr_deinit();
+                        g_gpio_irq = NULL;
+                        (void)gpio_interrupt_deinit();
+
                         return 1;
                     }
                     ld3320_interface_debug_print("ld3320: found key word.\n");
-                    ld3320_asr_deinit();
+                    (void)ld3320_asr_deinit();
                     g_gpio_irq = NULL;
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     
                     return 0;
                 }

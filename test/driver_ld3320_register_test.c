@@ -48,10 +48,10 @@ static ld3320_handle_t gs_handle;        /**< ld3320 handle */
  */
 uint8_t ld3320_register_test(void)
 {
-    volatile uint8_t res;
-    volatile uint8_t len;
-    volatile uint8_t volume_left, volume_left_check;
-    volatile uint8_t volume_right, volume_right_check;
+    uint8_t res;
+    uint8_t len;
+    uint8_t volume_left, volume_left_check;
+    uint8_t volume_right, volume_right_check;
     char text[1][50];
     char text_check[1][50];
     ld3320_info_t info;
@@ -79,7 +79,7 @@ uint8_t ld3320_register_test(void)
     
     /* get information */
     res = ld3320_info(&info);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get info failed.\n");
        
@@ -104,7 +104,7 @@ uint8_t ld3320_register_test(void)
     
     /* init */
     res = ld3320_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: init failed.\n");
        
@@ -116,19 +116,19 @@ uint8_t ld3320_register_test(void)
     
     /* mp3 mode */
     res = ld3320_set_mode(&gs_handle, LD3320_MODE_MP3);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mode failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: set mp3 mode.\n");
     res = ld3320_get_mode(&gs_handle, &mode);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get mode failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -136,19 +136,19 @@ uint8_t ld3320_register_test(void)
     
     /* asr mode */
     res = ld3320_set_mode(&gs_handle, LD3320_MODE_ASR);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mode failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: set asr mode.\n");
     res = ld3320_get_mode(&gs_handle, &mode);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get mode failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -156,46 +156,46 @@ uint8_t ld3320_register_test(void)
     
     /* ld3320_set_key_words/ld3320_get_key_words test */
     ld3320_interface_debug_print("ld3320: ld3320_set_key_words/ld3320_get_key_words test.\n");
-    memset(text, 0, sizeof(char) * 50);
-    memcpy(text, "ni hao", strlen("ni hao"));
+    memset(text[0], 0, sizeof(char) * 50);
+    strncpy((char *)text[0], "ni hao", strlen("ni hao"));
     res = ld3320_set_key_words(&gs_handle, text, 1);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set key words failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: set key words \"ni hao\".\n");
     res = ld3320_get_key_words(&gs_handle, text_check, (uint8_t *)&len);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get key words failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: check key words %s.\n", 
-                                 (len == 1) && (memcmp(text, text_check, strlen("ni hao")) == 0) ? "ok" : "error");
+                                 (len == 1) && (strncmp((char *)text[0], (char *)text_check[0], (uint16_t)strlen("ni hao")) == 0) ? "ok" : "error");
     
     /* ld3320_set_mic_gain/ld3320_get_mic_gain test */
     ld3320_interface_debug_print("ld3320: ld3320_set_mic_gain/ld3320_get_mic_gain test.\n");
     
     /* set gain common */
     res = ld3320_set_mic_gain(&gs_handle, LD3320_MIC_GAIN_COMMON);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mic gain failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: set mic common gain.\n");
     res = ld3320_get_mic_gain(&gs_handle, &gain);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get mic gain failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -203,19 +203,19 @@ uint8_t ld3320_register_test(void)
     
     /* set gain noise */
     res = ld3320_set_mic_gain(&gs_handle, LD3320_MIC_GAIN_NOISE);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set mic gain failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: set mic noise gain.\n");
     res = ld3320_get_mic_gain(&gs_handle, &gain);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get mic gain failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -226,19 +226,19 @@ uint8_t ld3320_register_test(void)
     
     /* set vad common */
     res = ld3320_set_vad(&gs_handle, LD3320_VAD_COMMON);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set vad failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: set vad common.\n");
     res = ld3320_get_vad(&gs_handle, &vad);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get vad failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -246,19 +246,19 @@ uint8_t ld3320_register_test(void)
     
     /* set vad far */
     res = ld3320_set_vad(&gs_handle, LD3320_VAD_FAR);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set vad failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: set vad far.\n");
     res = ld3320_get_vad(&gs_handle, &vad);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get vad failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -268,19 +268,19 @@ uint8_t ld3320_register_test(void)
     ld3320_interface_debug_print("ld3320: ld3320_set_speaker_volume/ld3320_get_speaker_volume test.\n");
     volume_left = rand() % 16;
     res = ld3320_set_speaker_volume(&gs_handle, volume_left);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set speaker volume failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: set volume 0x%02X.\n", volume_left);
     res = ld3320_get_speaker_volume(&gs_handle, (uint8_t *)&volume_left_check);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get speaker volume failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -291,20 +291,20 @@ uint8_t ld3320_register_test(void)
     volume_left = rand() % 16;
     volume_right = rand() % 16;
     res = ld3320_set_headset_volume(&gs_handle, volume_left, volume_right);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: set headset volume failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
     ld3320_interface_debug_print("ld3320: set left volume 0x%02X.\n", volume_left);
     ld3320_interface_debug_print("ld3320: set right volume 0x%02X.\n", volume_right);
     res = ld3320_get_headset_volume(&gs_handle, (uint8_t *)&volume_left_check, (uint8_t *)&volume_right_check);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get headset volume failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -314,10 +314,10 @@ uint8_t ld3320_register_test(void)
     /* ld3320_get_status test */
     ld3320_interface_debug_print("ld3320: ld3320_get_status test.\n");
     res = ld3320_get_status(&gs_handle, &status);
-    if (res)
+    if (res != 0)
     {
         ld3320_interface_debug_print("ld3320: get status failed.\n");
-        ld3320_deinit(&gs_handle);
+        (void)ld3320_deinit(&gs_handle);
         
         return 1;
     }
@@ -325,7 +325,7 @@ uint8_t ld3320_register_test(void)
     
     /* finish register test */
     ld3320_interface_debug_print("ld3320: finish register test.\n");
-    ld3320_deinit(&gs_handle);
+    (void)ld3320_deinit(&gs_handle);
     
     return 0;
 }

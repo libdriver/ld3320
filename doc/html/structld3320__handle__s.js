@@ -1,7 +1,7 @@
 var structld3320__handle__s =
 [
     [ "buf", "structld3320__handle__s.html#a8d6aa3b6556562d34ec088f58aac9b60", null ],
-    [ "debug_print", "structld3320__handle__s.html#a75f9f50c23e87e9407f9ec4e34bb42f2", null ],
+    [ "debug_print", "structld3320__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b", null ],
     [ "delay_ms", "structld3320__handle__s.html#a406c9433252b7366de417b7a60915c81", null ],
     [ "delay_us", "structld3320__handle__s.html#a97ffc4fce945527bd6ab25a3596caef7", null ],
     [ "inited", "structld3320__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f", null ],
@@ -12,7 +12,7 @@ var structld3320__handle__s =
     [ "mp3_read_deinit", "structld3320__handle__s.html#a6adea3f3b74196fb98e1a9ccfd35af43", null ],
     [ "mp3_read_init", "structld3320__handle__s.html#a2528a5e50e311b427097ab21989f2d45", null ],
     [ "point", "structld3320__handle__s.html#a8fa9dea40fcea29f4a932088941c942f", null ],
-    [ "receive_callback", "structld3320__handle__s.html#a8c177df3ef674485e8d8d2a313bafb79", null ],
+    [ "receive_callback", "structld3320__handle__s.html#a95c8a4f3e083394c4e7d10c14ce094b7", null ],
     [ "reset_gpio_deinit", "structld3320__handle__s.html#a69c42ff05fc69e3f1621f3c0347a840b", null ],
     [ "reset_gpio_init", "structld3320__handle__s.html#aa264e23f5c4ddd7a9bfa5cd9e387e013", null ],
     [ "reset_gpio_write", "structld3320__handle__s.html#ae88962c62483f005e4930e9ca4b00981", null ],

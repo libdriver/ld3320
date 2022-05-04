@@ -1,12 +1,12 @@
 var driver__ld3320__interface__template_8c =
 [
-    [ "ld3320_interface_debug_print", "group__ld3320__interface__driver.html#gac82609da82b2cb7157f540ae6c7d13e5", null ],
+    [ "ld3320_interface_debug_print", "group__ld3320__interface__driver.html#gafa85984e81420ab0e2defbdcce3ceb1e", null ],
     [ "ld3320_interface_delay_ms", "group__ld3320__interface__driver.html#ga3a554b0dadce085a99d4564509ab773e", null ],
     [ "ld3320_interface_delay_us", "group__ld3320__interface__driver.html#gaf04c51a9bc6ecea9d44b81fa807950cf", null ],
     [ "ld3320_interface_mp3_deinit", "group__ld3320__interface__driver.html#gace15c2d4f2c5736816d0ade5e88c6db8", null ],
     [ "ld3320_interface_mp3_init", "group__ld3320__interface__driver.html#gad77a481089ccde5c82ec25651936de32", null ],
     [ "ld3320_interface_mp3_read", "group__ld3320__interface__driver.html#ga1209646409d8ab2212dcb5c6a6bea841", null ],
-    [ "ld3320_interface_receive_callback", "group__ld3320__interface__driver.html#gaa43f22e06ddd1351474f1bb57bbc5d2b", null ],
+    [ "ld3320_interface_receive_callback", "group__ld3320__interface__driver.html#gad2e6186883f6116cc74f52d9e481922a", null ],
     [ "ld3320_interface_reset_gpio_deinit", "group__ld3320__interface__driver.html#ga5c2edbb7ff33929bdb0f67cc1839eabd", null ],
     [ "ld3320_interface_reset_gpio_init", "group__ld3320__interface__driver.html#ga2d67877a3e1f2996404c76af734f4a40", null ],
     [ "ld3320_interface_reset_gpio_write", "group__ld3320__interface__driver.html#gab5c412c83d92563eb3a6caffec7b4b5a", null ],
