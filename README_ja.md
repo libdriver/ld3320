@@ -51,6 +51,8 @@ LibDriver LD3320は、LibDriverによって起動されたLD3320の全機能ド�
 #### example asr
 
 ```C
+#include "driver_ld3320_asr.h"
+
 uint8_t res;
 uint32_t timeout;
 uint8_t g_flag;
@@ -143,6 +145,8 @@ return 0;
 #### example mp3
 
 ```c
+#include "driver_ld3320_mp3.h"
+
 uint8_t res;
 uint32_t timeout;
 uint8_t g_flag;
