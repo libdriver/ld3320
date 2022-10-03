@@ -51,6 +51,8 @@ LibDriver LD3320은 LibDriver에서 출시한 LD3320의 전체 기능 드라이�
 #### example asr
 
 ```C
+#include "driver_ld3320_asr.h"
+
 uint8_t res;
 uint32_t timeout;
 uint8_t g_flag;
@@ -143,6 +145,8 @@ return 0;
 #### example mp3
 
 ```c
+#include "driver_ld3320_mp3.h"
+
 uint8_t res;
 uint32_t timeout;
 uint8_t g_flag;

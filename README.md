@@ -28,15 +28,15 @@ LibDriver LD3320 is the full function driver of LD3320 launched by LibDriver.It 
 
 /src includes LibDriver LD3320 source files.
 
-/interface includes LibDriver LD3320 SPI platform independent template。
+/interface includes LibDriver LD3320 SPI platform independent template.
 
-/test includes LibDriver LD3320 driver test code and this code can test the chip necessary function simply。
+/test includes LibDriver LD3320 driver test code and this code can test the chip necessary function simply.
 
 /example includes LibDriver LD3320 sample code.
 
 /doc includes LibDriver LD3320 offline document.
 
-/datasheet includes LD3320 datasheet。
+/datasheet includes LD3320 datasheet.
 
 /project includes the common Linux and MCU development board sample code. All projects use the shell script to debug the driver and the detail instruction can be found in each project's README.md.
 
@@ -51,6 +51,8 @@ Add /src, /interface and /example to your project.
 #### example asr
 
 ```C
+#include "driver_ld3320_asr.h"
+
 uint8_t res;
 uint32_t timeout;
 uint8_t g_flag;
@@ -143,6 +145,8 @@ return 0;
 #### example mp3
 
 ```C
+#include "driver_ld3320_mp3.h"
+
 uint8_t res;
 uint32_t timeout;
 uint8_t g_flag;

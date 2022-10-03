@@ -52,6 +52,8 @@ LibDriver LD3320 是LibDriver推出的LD3320的全功能驱动，该驱动提供
 #### example asr
 
 ```C
+#include "driver_ld3320_asr.h"
+
 uint8_t res;
 uint32_t timeout;
 uint8_t g_flag;
@@ -144,6 +146,8 @@ return 0;
 #### example mp3
 
 ```C
+#include "driver_ld3320_mp3.h"
+
 uint8_t res;
 uint32_t timeout;
 uint8_t g_flag;
