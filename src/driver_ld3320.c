@@ -130,7 +130,7 @@
  * @brief     write the data
  * @param[in] *handle points to a ld3320 handle structure
  * @param[in] address is the register address
- * @param[in] data is the written data
+ * @param[in] data is the write data
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -159,7 +159,7 @@ static uint8_t a_ld3320_write_byte(ld3320_handle_t *handle, uint8_t address, uin
  * @brief      read the data
  * @param[in]  *handle points to a ld3320 handle structure
  * @param[in]  address is the register address
- * @param[out] *data points to a written data buffer
+ * @param[out] *data points to a data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
@@ -2241,7 +2241,7 @@ uint8_t ld3320_configure_mp3(ld3320_handle_t *handle, char *name)
  * @brief     set the chip register
  * @param[in] *handle points to a ld3320 handle structure
  * @param[in] reg is the register address
- * @param[in] data is the written data
+ * @param[in] data is the write data
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -2267,7 +2267,7 @@ uint8_t ld3320_set_reg(ld3320_handle_t *handle, uint8_t reg, uint8_t data)
  * @brief      get the chip register
  * @param[in]  *handle points to a ld3320 handle structure
  * @param[in]  reg is the register address
- * @param[out] *data points to a written data buffer
+ * @param[out] *data points to a data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed

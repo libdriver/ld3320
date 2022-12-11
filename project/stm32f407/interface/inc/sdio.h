@@ -25,12 +25,12 @@
  * @brief     sdio header file
  * @version   1.0.0
  * @author    Shifeng Li
- * @date      2021-2-12
+ * @date      2022-11-11
  *
  * <h3>history</h3>
  * <table>
  * <tr><th>Date        <th>Version  <th>Author      <th>Description
- * <tr><td>2021/02/12  <td>1.0      <td>Shifeng Li  <td>first upload
+ * <tr><td>2022/11/11  <td>1.0      <td>Shifeng Li  <td>first upload
  * </table>
  */
 
@@ -48,16 +48,6 @@
  * @brief    sdio function modules
  * @{
  */
-
-/**
- * @brief sdio var definition
- */
-extern SD_HandleTypeDef  g_sd_handle;
-extern DMA_HandleTypeDef g_sd_tx_dma_handle;
-extern DMA_HandleTypeDef g_sd_rx_dma_handle;
-extern HAL_SD_CardInfoTypeDef  g_card_info;
-extern uint8_t g_sd_tx_done; 
-extern uint8_t g_sd_rx_done;
 
 /**
  * @brief  sdio bus init
@@ -80,6 +70,19 @@ uint8_t sdio_init(void);
 uint8_t sdio_deinit(void);
 
 /**
+ * @brief     sdio write
+ * @param[in] sector is the write first sector
+ * @param[in] *buf points to a data buffer
+ * @param[in] cnt is the data length
+ * @return    status code
+ *            - 0 success
+ *            - 1 write failed
+ *            - 2 write timeout
+ * @note      none
+ */
+uint8_t sdio_write(uint32_t sector, uint8_t *buf, uint32_t cnt);
+
+/**
  * @brief      sdio read
  * @param[in]  sector is the read first sector
  * @param[out] *buf points to a data buffer
@@ -93,17 +96,44 @@ uint8_t sdio_deinit(void);
 uint8_t sdio_read(uint32_t sector, uint8_t *buf, uint32_t cnt);
 
 /**
- * @brief     sdio write
- * @param[in] sector is the written first sector
- * @param[in] *buf points to a data buffer
- * @param[in] cnt is the data length
- * @return    status code
- *            - 0 success
- *            - 1 write failed
- *            - 2 write timeout
- * @note      none
+ * @brief  sdio get sd handle
+ * @return points to a sd handle
+ * @note   none
  */
-uint8_t sdio_write(uint32_t sector, uint8_t *buf, uint32_t cnt);
+SD_HandleTypeDef* sdio_get_handle(void);
+
+/**
+ * @brief  sdio get the tx dma handle
+ * @return points to a tx dma handle
+ * @note   none
+ */
+DMA_HandleTypeDef* sdio_get_tx_dma_handle(void);
+
+/**
+ * @brief  sdio get the rx dma handle
+ * @return points to a rx dma handle
+ * @note   none
+ */
+DMA_HandleTypeDef* sdio_get_rx_dma_handle(void);
+
+/**
+ * @brief  sdio get card info handle
+ * @return points to a card info handle
+ * @note   none
+ */
+HAL_SD_CardInfoTypeDef* sdio_get_card_info(void);
+
+/**
+ * @brief sdio set tx done
+ * @note  none
+ */
+void sdio_set_tx_done(void);
+
+/**
+ * @brief sdio set rx done
+ * @note  none
+ */
+void sdio_set_rx_done(void);
 
 /**
  * @}

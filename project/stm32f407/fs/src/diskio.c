@@ -200,14 +200,14 @@ DRESULT disk_ioctl (
                 }
                 case GET_BLOCK_SIZE :
                 {
-                    *(WORD*)buff = g_card_info.LogBlockSize;
+                    *(WORD*)buff = sdio_get_card_info()->LogBlockSize;
                     stat = RES_OK;
                     
                     break;
                 }                    
                 case GET_SECTOR_COUNT:
                 {
-                    *(DWORD*)buff = g_card_info.LogBlockNbr;
+                    *(DWORD*)buff = sdio_get_card_info()->LogBlockNbr;
                     stat = RES_OK;
                     
                     break;

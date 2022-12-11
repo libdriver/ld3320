@@ -60,15 +60,6 @@ extern "C"{
 uint8_t ld3320_interface_spi_init(void);
 
 /**
- * @brief  interface spi high speed bus init
- * @return status code
- *         - 0 success
- *         - 1 spi init failed
- * @note   none
- */
-uint8_t ld3320_interface_spi_high_speed_init(void);
-
-/**
  * @brief  interface spi bus deinit
  * @return status code
  *         - 0 success

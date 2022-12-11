@@ -1,12 +1,12 @@
-### 1. Chip
+### 1. Board
 
-#### 1.1 Chip Info
+#### 1.1 Board Info
 
-chip name : Raspberry Pi 4B.
+Board Name: Raspberry Pi 4B.
 
-spi pin: SCLK/MOSI/MISO/CS GPIO11/GPIO10/GPIO9/GPIO8.
+SPI Pin: SCLK/MOSI/MISO/CS GPIO11/GPIO10/GPIO9/GPIO8.
 
-gpio pin: RSTB/INTB GPIO27/GPIO17.
+GPIO Pin: RSTB/INTB GPIO27/GPIO17.
 
 ### 2. Install
 
@@ -72,31 +72,61 @@ Find the compiled library in CMake.
 find_package(ld3320 REQUIRED)
 ```
 
+#### 2.4 Problem
+
+There is some unknown problem in the gpio or spi interface of ld3320 on the raspberry board.When the end of playing mp3, no end interrupt can be catched, you may use some ways to catch the end of mp3 playing and deint the ld3320.
+
 ### 3. LD3320
 
 #### 3.1 Command Instruction
 
-​           ld3320 is a basic command which can test all ld3320 driver function:
+1. Show ld3320 chip and driver information.
 
-​           -i        show ld3320 chip and driver information.
+   ```shell
+   ld3320 (-i | --information)
+   ```
 
-​           -h       show ld3320 help.
+2. Show ld3320 help.
 
-​           -p       show ld3320 pin connections of the current board.
+   ```shell
+   ld3320 (-h | --help)
+   ```
 
-​           -t (reg | asr | mp3 -f <filepath>)
+3. Show ld3320 pin connections of the current board.
 
-​           -t  reg        run ld3320 register test.
+   ```shell
+   ld3320 (-p | --port)
+   ```
 
-​           -t asr        run ld3320 asr test.
+4. Run ld3320 register test.
 
-​           -t mp3 -f <filepath>        run ld3320 mp3 test.filepath is the mp3 music file path.
+   ```shell
+   ld3320 (-t reg | --test=reg)
+   ```
 
-​           -c (asr -k <keywords> | mp3 -f <filepath>)
+5. Run ld3320 asr test.
 
-​           -c asr -k <keywords>        run ld3320 asr function.keywords is the asr key words. 
+   ```shell
+   ld3320 (-t asr | --test=asr)
+   ```
 
-​           -c mp3 -f <filepath>        run ld3320 mp3 function.filepath is mp3 music file path. 
+6. Run ld3320 mp3 test, path is the mp3 music file path.
+
+   ```shell
+   ld3320 (-t mp3 | --test=mp3) [--file=<path>]
+   ```
+
+7. Run ld3320 asr function, word is the asr key word. 
+
+   ```shell
+   ld3320 (-e asr | --example=asr) [--keyword=<word>]
+   ```
+
+8. Run ld3320 mp3 function, path is mp3 music file path. 
+
+   ```shell
+   ld3320 (-e mp3 | --example=mp3) [--file=<path>]
+   ```
 
 #### 3.2 Command Example
 
@@ -163,10 +193,10 @@ ld3320: check vad ok.
 ld3320: set vad far.
 ld3320: check vad ok.
 ld3320: ld3320_set_speaker_volume/ld3320_get_speaker_volume test.
-ld3320: set volume 0x00.
+ld3320: set volume 0x07.
 ld3320: check volume ok.
 ld3320: ld3320_set_headset_volume/ld3320_get_headset_volume test.
-ld3320: set left volume 0x0B.
+ld3320: set left volume 0x06.
 ld3320: set right volume 0x09.
 ld3320: check left volume ok.
 ld3320: check right volume ok.
@@ -194,7 +224,7 @@ ld3320: finish asr test.
 ```
 
 ```shell
-./ld3320 -t mp3 -f ./music/we-are-the-world.mp3
+./ld3320 -t mp3 --file=./music/we-are-the-world.mp3
 
 ld3320: chip is IC Route LD3320.
 ld3320: manufacturer is IC Route.
@@ -206,54 +236,49 @@ ld3320: max current is 166.70mA.
 ld3320: max temperature is 85.0C.
 ld3320: min temperature is -40.0C.
 ld3320: start mp3 test.
-ld3320: play 0:we are the world.mp3.
-ld3320: irq mp3 load.
-.
-.
-.
+ld3320: play ./music/we are the world.mp3.
 ld3320: irq mp3 end.
-ld3320: irq mp3 load.
 ld3320: finish mp3 test.
 ```
 
 ```shell
-./ld3320 -c asr -k ni-hao
+./ld3320 -e asr --keyword=ha-lou
 
-ld3320: key word is ni hao.
-ld3320: irq zero.
-ld3320: detect index 0 ni hao.
+ld3320: key word is ha lou.
+ld3320: detect index 0 ha lou.
 ld3320: found key word.
 ```
 
 ```shell
-./ld3320 -c mp3 -f ./music/we-are-the-world.mp3
+./ld3320 -e mp3 --file=./music/we-are-the-world.mp3
 
-ld3320: play 0:we are the world.mp3.
-ld3320: irq mp3 load.
-.
-.
-.
+ld3320: play ./music/we are the world.mp3.
+ld3320: irq mp3 end.
 ld3320: play end.
 ```
 
 ```shell
 ./ld3320 -h
 
-ld3320 -i
-	show ld3320 chip and driver information.
-ld3320 -h
-	show ld3320 help.
-ld3320 -p
-	show ld3320 pin connections of the current board.
-ld3320 -t reg
-	run ld3320 register test.
-ld3320 -t asr
-	run ld3320 asr test.
-ld3320 -t mp3 -f <filepath>
-	run ld3320 mp3 test.filepath is the mp3 music file path.
-ld3320 -c asr -k <keywords>
-	run ld3320 asr function.keywords is the asr key words.
-ld3320 -c mp3 -f <filepath>
-	run ld3320 mp3 function.filepath is mp3 music file path.
+Usage:
+  ld3320 (-i | --information)
+  ld3320 (-h | --help)
+  ld3320 (-p | --port)
+  ld3320 (-t reg | --test=reg)
+  ld3320 (-t asr | --test=asr)
+  ld3320 (-t mp3 | --test=mp3) [--file=<path>]
+  ld3320 (-e asr | --example=asr) [--keyword=<word>]
+  ld3320 (-e mp3 | --example=mp3) [--file=<path>]
+
+Options:
+  -e <asr | mp3>, --example=<asr | mp3>
+                          Run the driver example.
+      --file=<path>       Set the mp3 file path.([default: test.mp3])
+  -h, --help              Show the help.
+  -i, --information       Show the chip information.
+      --keyword=<word>    Set the asr keyword.([default: ha-lou])
+  -p, --port              Display the pin connections of the current board.
+  -t <reg | asr | mp3>, --test=<reg | asr | mp3>
+                          Run the driver test.
 ```
 

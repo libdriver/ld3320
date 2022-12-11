@@ -72,7 +72,7 @@ uint8_t ld3320_mp3_init(char *name, void (*receive_callback)(uint8_t type, uint8
     
     /* link driver */
     DRIVER_LD3320_LINK_INIT(&gs_handle, ld3320_handle_t);
-    DRIVER_LD3320_LINK_SPI_INIT(&gs_handle, ld3320_interface_spi_high_speed_init);
+    DRIVER_LD3320_LINK_SPI_INIT(&gs_handle, ld3320_interface_spi_init);
     DRIVER_LD3320_LINK_SPI_DEINIT(&gs_handle, ld3320_interface_spi_deinit);
     DRIVER_LD3320_LINK_SPI_READ_ADDRESS16(&gs_handle, ld3320_interface_spi_read_address16);
     DRIVER_LD3320_LINK_SPI_WRITE_COMMAND(&gs_handle, ld3320_interface_spi_write_cmd);

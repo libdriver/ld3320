@@ -122,9 +122,9 @@ typedef struct ld3320_handle_s
     void (*delay_us)(uint32_t us);                                                   /**< point to a delay_us function address */
     void (*debug_print)(const char *const fmt, ...);                                 /**< point to a debug_print function address */
     void (*receive_callback)(uint8_t type, uint8_t index, char *text);               /**< point to a receive_callback function address */
-    uint8_t (*mp3_read_init)(char *name, uint32_t *size);                            /**< point to a mp3_read_init function address */
-    uint8_t (*mp3_read)(uint32_t addr, uint16_t size, uint8_t *buffer);              /**< point to a mp3_read function address */
-    uint8_t (*mp3_read_deinit)(void);                                                /**< point to a mp3_read_deinit function address */
+    uint8_t (*mp3_read_init)(char *name, uint32_t *size);                            /**< point to an mp3_read_init function address */
+    uint8_t (*mp3_read)(uint32_t addr, uint16_t size, uint8_t *buffer);              /**< point to an mp3_read function address */
+    uint8_t (*mp3_read_deinit)(void);                                                /**< point to an mp3_read_deinit function address */
     uint8_t inited;                                                                  /**< inited flag */
     uint8_t mode;                                                                    /**< running mode */
     uint8_t running_status;                                                          /**< running status */
@@ -263,7 +263,7 @@ typedef struct ld3320_info_s
 /**
  * @brief     link mp3_read_init function
  * @param[in] HANDLE points to a ld3320 handle structure
- * @param[in] FUC points to a mp3_read_init function address
+ * @param[in] FUC points to an mp3_read_init function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_MP3_READ_INT(HANDLE, FUC)                  (HANDLE)->mp3_read_init = FUC
@@ -271,7 +271,7 @@ typedef struct ld3320_info_s
 /**
  * @brief     link mp3_read_deinit function
  * @param[in] HANDLE points to a ld3320 handle structure
- * @param[in] FUC points to a mp3_read_deinit function address
+ * @param[in] FUC points to an mp3_read_deinit function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_MP3_READ_DEINT(HANDLE, FUC)                (HANDLE)->mp3_read_deinit = FUC
@@ -279,7 +279,7 @@ typedef struct ld3320_info_s
 /**
  * @brief     link mp3_read function
  * @param[in] HANDLE points to a ld3320 handle structure
- * @param[in] FUC points to a mp3_read function address
+ * @param[in] FUC points to an mp3_read function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_MP3_READ(HANDLE, FUC)                      (HANDLE)->mp3_read = FUC
@@ -564,7 +564,7 @@ uint8_t ld3320_get_headset_volume(ld3320_handle_t *handle, uint8_t *volume_left,
  * @brief     set the chip register
  * @param[in] *handle points to a ld3320 handle structure
  * @param[in] reg is the register address
- * @param[in] data is the written data
+ * @param[in] data is the write data
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -578,7 +578,7 @@ uint8_t ld3320_set_reg(ld3320_handle_t *handle, uint8_t reg, uint8_t data);
  * @brief      get the chip register
  * @param[in]  *handle points to a ld3320 handle structure
  * @param[in]  reg is the register address
- * @param[out] *data points to a written data buffer
+ * @param[out] *data points to a data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
