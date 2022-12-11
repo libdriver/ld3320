@@ -58,19 +58,7 @@ static FILE *gs_fp = NULL;                  /**< fp handle */
  */
 uint8_t ld3320_interface_spi_init(void)
 {
-    return spi_init(SPI_DEVICE_NAME, &gs_fd, SPI_MODE_TYPE_2, 1000 * 1000 / 4);
-}
-
-/**
- * @brief  interface spi high speed bus init
- * @return status code
- *         - 0 success
- *         - 1 spi init failed
- * @note   none
- */
-uint8_t ld3320_interface_spi_high_speed_init(void)
-{
-    return spi_init(SPI_DEVICE_NAME, &gs_fd, SPI_MODE_TYPE_2, 1000 * 1000);
+    return spi_init(SPI_DEVICE_NAME, &gs_fd, SPI_MODE_TYPE_2, 1000 * 1000 * 2);
 }
 
 /**
@@ -283,7 +271,7 @@ void ld3320_interface_debug_print(const char *const fmt, ...)
     uint8_t len;
     va_list args;
     
-    memset((char *)str, 0, sizeof(char)*256); 
+    memset((char *)str, 0, sizeof(char) * 256); 
     va_start(args, fmt);
     vsnprintf((char *)str, 256, (char const *)fmt, args);
     va_end(args);

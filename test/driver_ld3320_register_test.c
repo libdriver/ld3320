@@ -91,7 +91,7 @@ uint8_t ld3320_register_test(void)
         ld3320_interface_debug_print("ld3320: chip is %s.\n", info.chip_name);
         ld3320_interface_debug_print("ld3320: manufacturer is %s.\n", info.manufacturer_name);
         ld3320_interface_debug_print("ld3320: interface is %s.\n", info.interface);
-        ld3320_interface_debug_print("ld3320: driver version is %d.%d.\n", info.driver_version/1000, (info.driver_version%1000)/100);
+        ld3320_interface_debug_print("ld3320: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
         ld3320_interface_debug_print("ld3320: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
         ld3320_interface_debug_print("ld3320: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
         ld3320_interface_debug_print("ld3320: max current is %0.2fmA.\n", info.max_current_ma);

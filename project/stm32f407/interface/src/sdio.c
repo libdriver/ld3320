@@ -25,25 +25,24 @@
  * @brief     sdio source file
  * @version   1.0.0
  * @author    Shifeng Li
- * @date      2021-2-12
+ * @date      2022-11-11
  *
  * <h3>history</h3>
  * <table>
  * <tr><th>Date        <th>Version  <th>Author      <th>Description
- * <tr><td>2021/02/12  <td>1.0      <td>Shifeng Li  <td>first upload
+ * <tr><td>2022/11/11  <td>1.0      <td>Shifeng Li  <td>first upload
  * </table>
  */
 
-#include "delay.h" 
 #include "sdio.h"
 
 /**
  * @brief sdio var definition
  */
-uint8_t                 g_sd_tx_done;        /**< sd tx done */
-uint8_t                 g_sd_rx_done;        /**< sd rx done */
-SD_HandleTypeDef        g_sd_handle;         /**< sd handle */
-HAL_SD_CardInfoTypeDef  g_card_info;         /**< card information */
+volatile uint8_t g_sd_tx_done;               /**< sd tx done */
+volatile uint8_t g_sd_rx_done;               /**< sd rx done */
+SD_HandleTypeDef g_sd_handle;                /**< sd handle */
+HAL_SD_CardInfoTypeDef g_card_info;          /**< card information */
 DMA_HandleTypeDef g_sd_tx_dma_handle;        /**< sd tx dma handle */
 DMA_HandleTypeDef g_sd_rx_dma_handle;        /**< sd rx dma handle */
 
@@ -68,18 +67,21 @@ uint8_t sdio_init(void)
     g_sd_handle.Init.HardwareFlowControl = SDIO_HARDWARE_FLOW_CONTROL_DISABLE;
     g_sd_handle.Init.ClockDiv = SDIO_TRANSFER_CLK_DIV;
     
+    /* sd init */
     res = HAL_SD_Init(&g_sd_handle);
     if(res != HAL_OK)
     {
         return 1;
     }
     
+    /* get cart info */
     res = HAL_SD_GetCardInfo(&g_sd_handle, &g_card_info);
     if(res != HAL_OK)
     {
         return 2;
     }
     
+    /* set sdio bus wide 4b */
     res = HAL_SD_ConfigWideBusOperation(&g_sd_handle, SDIO_BUS_WIDE_4B);
     if(res != HAL_OK)
     {
@@ -98,7 +100,7 @@ uint8_t sdio_init(void)
  */
 uint8_t sdio_deinit(void)
 {
-    if (HAL_SD_DeInit(&g_sd_handle))
+    if (HAL_SD_DeInit(&g_sd_handle) != HAL_OK)
     {
         return 1;
     }
@@ -124,26 +126,34 @@ uint8_t sdio_read(uint32_t sector, uint8_t *buf, uint32_t cnt)
     HAL_StatusTypeDef res;
     uint32_t timeout = 1000;
     
+    /* set rx done 0 */
     g_sd_rx_done = 0;
+    
+    /* read blocks */
     res = HAL_SD_ReadBlocks_DMA(&g_sd_handle, (uint8_t*)buf, sector, cnt);
     if (res == HAL_OK)
     {
         while (1)
         {
-            if (g_sd_rx_done)
+            /* if rx done */
+            if (g_sd_rx_done != 0)
             {
                 break;
             }
             else
             {
                 timeout--;
+                
+                /* if timeout */
                 if (timeout == 0)
                 {
                     return 2;
                 }
             }
-            delay_ms(1);
+            HAL_Delay(1);
         }
+        
+        /* wait finished */
         while (HAL_SD_GetCardState(&g_sd_handle) != HAL_SD_CARD_TRANSFER)
         {
             
@@ -159,7 +169,7 @@ uint8_t sdio_read(uint32_t sector, uint8_t *buf, uint32_t cnt)
 
 /**
  * @brief     sdio write
- * @param[in] sector is the written first sector
+ * @param[in] sector is the write first sector
  * @param[in] *buf points to a data buffer
  * @param[in] cnt is the data length
  * @return    status code
@@ -173,34 +183,101 @@ uint8_t sdio_write(uint32_t sector, uint8_t *buf, uint32_t cnt)
     HAL_StatusTypeDef res;
     uint32_t timeout = 1000;
     
+    /* set tx done 0 */
     g_sd_tx_done = 0;
+    
+    /* write blocks */
     res = HAL_SD_WriteBlocks_DMA(&g_sd_handle, (uint8_t*)buf, sector, cnt);
     if (res == HAL_OK)
     {
         while (1)
         {
-            if (g_sd_tx_done)
+            /* if tx done */
+            if (g_sd_tx_done != 0)
             {
                 break;
             }
             else
             {
                 timeout--;
+                
+                /* if timeout */
                 if (timeout == 0)
                 {
                     return 2;
                 }
             }
-            delay_ms(1); 
+            HAL_Delay(1); 
         }
+        
+        /* wait finished */
         while (HAL_SD_GetCardState(&g_sd_handle) != HAL_SD_CARD_TRANSFER)
         {
             
         }
+        
         return 0;
     }
     else
     {
         return 1;
     }
+}
+
+/**
+ * @brief  sdio get the tx dma handle
+ * @return points to a tx dma handle
+ * @note   none
+ */
+DMA_HandleTypeDef* sdio_get_tx_dma_handle(void)
+{
+    return &g_sd_tx_dma_handle;
+}
+
+/**
+ * @brief  sdio get the rx dma handle
+ * @return points to a rx dma handle
+ * @note   none
+ */
+DMA_HandleTypeDef* sdio_get_rx_dma_handle(void)
+{
+    return &g_sd_rx_dma_handle;
+}
+
+/**
+ * @brief  sdio get card info handle
+ * @return points to a card info handle
+ * @note   none
+ */
+HAL_SD_CardInfoTypeDef* sdio_get_card_info(void)
+{
+    return &g_card_info;
+}
+
+/**
+ * @brief  sdio get sd handle
+ * @return points to a sd handle
+ * @note   none
+ */
+SD_HandleTypeDef* sdio_get_handle(void)
+{
+    return &g_sd_handle;
+}
+
+/**
+ * @brief sdio set tx done
+ * @note  none
+ */
+void sdio_set_tx_done(void)
+{
+    g_sd_tx_done = 1;
+}
+
+/**
+ * @brief sdio set rx done
+ * @note  none
+ */
+void sdio_set_rx_done(void)
+{
+    g_sd_rx_done = 1;
 }

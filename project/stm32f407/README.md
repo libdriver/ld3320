@@ -2,55 +2,95 @@
 
 #### 1.1 Chip Info
 
-chip name : STM32F407ZGT6.
+Chip Name: STM32F407ZGT6.
 
-extern oscillator : 8MHz.
+Extern Oscillator: 8MHz.
 
-uart pin: TX/RX PA9/PA10.
+UART Pin: TX/RX PA9/PA10.
 
-spi pin: SCK/MISO/MOSI/CS  PA5/PA6/PA7/PA4.
+SPI Pin: SCK/MISO/MOSI/CS  PA5/PA6/PA7/PA4.
 
-gpio pin: RST/INT PA8/PB0.
+GPIO Pin: RST/INT PA8/PB0.
 
-### 2. Shell
+SDIO Pin: D0/D1/D2/D3/SCK/CMD PC8/PC9/PC10/PC11/PC12/PD2
 
-#### 2.1 Shell Parameter
+### 2. Development and Debugging
 
-baud rate: 115200.
+#### 2.1 Integrated Development Environment
 
-data bits : 8.
+LidDriver provides both Keil and IAR integrated development environment projects.
 
-stop bits: 1.
+MDK is the Keil ARM project and your Keil version must be 5 or higher.Keil ARM project needs STMicroelectronics STM32F4 Series Device Family Pack and you can download from https://www.keil.com/dd2/stmicroelectronics/stm32f407zgtx.
 
-parity: none.
+EW is the IAR ARM project and your IAR version must be 9 or higher.
 
-flow control: none.
+#### 2.2 Serial Port Parameter
+
+Baud Rate: 115200.
+
+Data Bits : 8.
+
+Stop Bits: 1.
+
+Parity: None.
+
+Flow Control: None.
+
+#### 2.3 Serial Port Assistant
+
+We use '\n' to wrap lines.If your serial port assistant displays exceptions (e.g. the displayed content does not divide lines), please modify the configuration of your serial port assistant or replace one that supports '\n' parsing.
 
 ### 3. LD3320
 
 #### 3.1 Command Instruction
 
-​           ld3320 is a basic command which can test all ld3320 driver function:
+1. Show ld3320 chip and driver information.
 
-​           -i        show ld3320 chip and driver information.
+   ```shell
+   ld3320 (-i | --information)
+   ```
 
-​           -h       show ld3320 help.
+2. Show ld3320 help.
 
-​           -p       show ld3320 pin connections of the current board.
+   ```shell
+   ld3320 (-h | --help)
+   ```
 
-​           -t (reg | asr | mp3 -f <filepath>)
+3. Show ld3320 pin connections of the current board.
 
-​           -t  reg        run ld3320 register test.
+   ```shell
+   ld3320 (-p | --port)
+   ```
 
-​           -t asr        run ld3320 asr test.
+4. Run ld3320 register test.
 
-​           -t mp3 -f <filepath>        run ld3320 mp3 test.filepath is the mp3 music file path.
+   ```shell
+   ld3320 (-t reg | --test=reg)
+   ```
 
-​           -c (asr -k <keywords> | mp3 -f <filepath>)
+5. Run ld3320 asr test.
 
-​           -c asr -k <keywords>        run ld3320 asr function.keywords is the asr key words. 
+   ```shell
+   ld3320 (-t asr | --test=asr)
+   ```
 
-​           -c mp3 -f <filepath>        run ld3320 mp3 function.filepath is mp3 music file path. 
+6. Run ld3320 mp3 test, path is the mp3 music file path.
+
+   ```shell
+   ld3320 (-t mp3 | --test=mp3) [--file=<path>]
+   ```
+
+7. Run ld3320 asr function, word is the asr key word. 
+
+   ```shell
+   ld3320 (-e asr | --example=asr) [--keyword=<word>]
+   ```
+
+8. Run ld3320 mp3 function, path is mp3 music file path. 
+
+   ```shell
+   ld3320 (-e mp3 | --example=mp3) [--file=<path>]
+   ```
 
 #### 3.2 Command Example
 
@@ -117,11 +157,11 @@ ld3320: check vad ok.
 ld3320: set vad far.
 ld3320: check vad ok.
 ld3320: ld3320_set_speaker_volume/ld3320_get_speaker_volume test.
-ld3320: set volume 0x00.
+ld3320: set volume 0x02.
 ld3320: check volume ok.
 ld3320: ld3320_set_headset_volume/ld3320_get_headset_volume test.
-ld3320: set left volume 0x0B.
-ld3320: set right volume 0x09.
+ld3320: set left volume 0x05.
+ld3320: set right volume 0x0A.
 ld3320: check left volume ok.
 ld3320: check right volume ok.
 ld3320: ld3320_get_status test.
@@ -148,7 +188,7 @@ ld3320: finish asr test.
 ```
 
 ```shell
-ld3320 -t mp3 -f 0:we-are-the-world.mp3
+ld3320 -t mp3 --file=0:we-are-the-world.mp3
 
 ld3320: chip is IC Route LD3320.
 ld3320: manufacturer is IC Route.
@@ -161,53 +201,48 @@ ld3320: max temperature is 85.0C.
 ld3320: min temperature is -40.0C.
 ld3320: start mp3 test.
 ld3320: play 0:we are the world.mp3.
-ld3320: irq mp3 load.
-.
-.
-.
 ld3320: irq mp3 end.
-ld3320: irq mp3 load.
 ld3320: finish mp3 test.
 ```
 
 ```shell
-ld3320 -c asr -k ni-hao
+ld3320 -e asr --keyword=ha-lou
 
-ld3320: key word is ni hao.
-ld3320: irq zero.
-ld3320: detect index 0 ni hao.
+ld3320: key word is ha lou.
+ld3320: detect index 0 ha lou.
 ld3320: found key word.
 ```
 
 ```shell
-ld3320 -c mp3 -f 0:we-are-the-world.mp3
+ld3320 -e mp3 --file=0:we-are-the-world.mp3
 
 ld3320: play 0:we are the world.mp3.
-ld3320: irq mp3 load.
-.
-.
-.
+ld3320: irq mp3 end.
 ld3320: play end.
 ```
 
 ```shell
 ld3320 -h
 
-ld3320 -i
-	show ld3320 chip and driver information.
-ld3320 -h
-	show ld3320 help.
-ld3320 -p
-	show ld3320 pin connections of the current board.
-ld3320 -t reg
-	run ld3320 register test.
-ld3320 -t asr
-	run ld3320 asr test.
-ld3320 -t mp3 -f <filepath>
-	run ld3320 mp3 test.filepath is the mp3 music file path.
-ld3320 -c asr -k <keywords>
-	run ld3320 asr function.keywords is the asr key words.
-ld3320 -c mp3 -f <filepath>
-	run ld3320 mp3 function.filepath is mp3 music file path.
+Usage:
+  ld3320 (-i | --information)
+  ld3320 (-h | --help)
+  ld3320 (-p | --port)
+  ld3320 (-t reg | --test=reg)
+  ld3320 (-t asr | --test=asr)
+  ld3320 (-t mp3 | --test=mp3) [--file=<path>]
+  ld3320 (-e asr | --example=asr) [--keyword=<word>]
+  ld3320 (-e mp3 | --example=mp3) [--file=<path>]
+
+Options:
+  -e <asr | mp3>, --example=<asr | mp3>
+                          Run the driver example.
+      --file=<path>       Set the mp3 file path.([default: test.mp3])
+  -h, --help              Show the help.
+  -i, --information       Show the chip information.
+      --keyword=<word>    Set the asr keyword.([default: ha-lou])
+  -p, --port              Display the pin connections of the current board.
+  -t <reg | asr | mp3>, --test=<reg | asr | mp3>
+                          Run the driver test.
 ```
 

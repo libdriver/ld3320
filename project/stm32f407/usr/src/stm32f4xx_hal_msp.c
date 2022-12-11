@@ -25,17 +25,17 @@
  * @brief     stm32f4xx hal msp source file
  * @version   1.0.0
  * @author    Shifeng Li
- * @date      2021-2-12
+ * @date      2022-11-11
  *
  * <h3>history</h3>
  * <table>
  * <tr><th>Date        <th>Version  <th>Author      <th>Description
- * <tr><td>2021/02/12  <td>1.0      <td>Shifeng Li  <td>first upload
+ * <tr><td>2022/11/11  <td>1.0      <td>Shifeng Li  <td>first upload
  * </table>
  */
 
-#include "sdio.h"
 #include "stm32f4xx_hal.h"
+#include "sdio.h"
 
 /** 
  * @defgroup msp HAL_MSP_Private_Functions
@@ -43,44 +43,43 @@
  */
 
 /**
- * @brief  Initializes the Global MSP.
+ * @brief  initializes the global msp.
  * @note   none
  */
 void HAL_MspInit(void)
 {
-  /* NOTE : This function is generated automatically by STM32CubeMX and eventually  
-            modified by the user
-   */ 
+    
 }
 
 /**
- * @brief  DeInitializes the Global MSP.
+ * @brief  deinitializes the global msp.
  * @note   none
  */
 void HAL_MspDeInit(void)
 {
-  /* NOTE : This function is generated automatically by STM32CubeMX and eventually  
-            modified by the user
-   */
+    
 }
 
 /**
- * @brief     uart hal layer init
+ * @brief     uart hal init
  * @param[in] *huart points to a uart handle
  * @note      none
  */
 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 {
     GPIO_InitTypeDef GPIO_InitStruct;
-  
+    
     if (huart->Instance == USART1)
     {
+        /* enable uart gpio clock */
         __HAL_RCC_GPIOA_CLK_ENABLE();
+        
+        /* enable usart1 clock */
         __HAL_RCC_USART1_CLK_ENABLE();
-    
-        /**USART1 GPIO Configuration
-         *PA9  ------> USART1_TX
-         *PA10 ------> USART1_RX 
+        
+        /**
+         * PA9  ------> USART1_TX
+         * PA10 ------> USART1_RX 
          */
         GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_10;
         GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -88,18 +87,22 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
         GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
         HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    
+        
+        /* enable nvic */
         HAL_NVIC_SetPriority(USART1_IRQn, 1, 0);
         HAL_NVIC_EnableIRQ(USART1_IRQn);
     }
     if (huart->Instance == USART2)
     {
+        /* enable uart gpio clock */
         __HAL_RCC_GPIOA_CLK_ENABLE();
+        
+        /* enable usart2 clock */
         __HAL_RCC_USART2_CLK_ENABLE();
     
-        /**USART1 GPIO Configuration
-         *PA2     ------> USART2_TX
-         *PA3     ------> USART2_RX 
+        /**
+         * PA2 ------> USART2_TX
+         * PA3 ------> USART2_RX 
          */
         GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_3;
         GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -107,14 +110,15 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
         GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
         HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    
+        
+        /* enable nvic */
         HAL_NVIC_SetPriority(USART2_IRQn, 2, 0);
         HAL_NVIC_EnableIRQ(USART2_IRQn);
     }
 }
 
 /**
- * @brief     uart hal layer deinit
+ * @brief     uart hal deinit
  * @param[in] *huart points to a uart handle
  * @note      none
  */
@@ -122,39 +126,50 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 {
     if (huart->Instance == USART1)
     {
+        /* disable usart1 clock */
         __HAL_RCC_USART1_CLK_DISABLE();
-    
+        
+        /* uart gpio deinit */
         HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9 | GPIO_PIN_10);
+        
+        /* disable nvic */
         HAL_NVIC_DisableIRQ(USART1_IRQn);
     }
     if (huart->Instance == USART2)
     {
+        /* disable usart2 clock */
         __HAL_RCC_USART2_CLK_DISABLE();
-    
+        
+        /* uart gpio deinit */
         HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2 | GPIO_PIN_3);
+        
+        /* disable nvic */
         HAL_NVIC_DisableIRQ(USART2_IRQn);
     }
 }
 
 /**
- * @brief     spi hal layer init
+ * @brief     spi hal init
  * @param[in] *hspi points to a spi handle
  * @note      none
  */
 void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 {
     GPIO_InitTypeDef GPIO_InitStruct;
-  
+    
     if (hspi->Instance == SPI1)
     {
+        /* enable spi gpio clock */
         __HAL_RCC_GPIOA_CLK_ENABLE();
+        
+        /* enable spi1 clock */
         __HAL_RCC_SPI1_CLK_ENABLE();
-    
-        /**SPI1 GPIO Configuration
-           PA5     ------> SPI1_SCK
-           PA6     ------> SPI1_MISO
-           PA7     ------> SPI1_MOSI 
-          */
+        
+        /**
+         * PA5 ------> SPI1_SCK
+         * PA6 ------> SPI1_MISO
+         * PA7 ------> SPI1_MOSI
+         */
         GPIO_InitStruct.Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7;
         GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
         GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -165,7 +180,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 }
 
 /**
- * @brief     spi hal layer deinit
+ * @brief     spi hal deinit
  * @param[in] *hspi points to a spi handle
  * @note      none
  */
@@ -173,34 +188,41 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* hspi)
 {
     if (hspi->Instance == SPI1)
     {
+        /* disable spi1 clock */
         __HAL_RCC_SPI1_CLK_DISABLE();
-    
+        
+        /* spi gpio deinit */
         HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7);
     }
 }
 
 /**
- * @brief     sd hal layer init
+ * @brief     sd hal init
  * @param[in] *hsd points to a sd handle
  * @note      none
  */
 void HAL_SD_MspInit(SD_HandleTypeDef *hsd)
 {
-    DMA_HandleTypeDef Tx_DMA_Handler, Rx_DMA_Handler;
     GPIO_InitTypeDef GPIO_Initure;
+    DMA_HandleTypeDef *sd_tx_dma_handle;
+    DMA_HandleTypeDef *sd_rx_dma_handle;
     
+    /* enable sdio clock */
     __HAL_RCC_SDIO_CLK_ENABLE();
+    
+    /* enable dma2 clock */
     __HAL_RCC_DMA2_CLK_ENABLE();
+    
+    /* enable sdio gpio clock */
     __HAL_RCC_GPIOC_CLK_ENABLE();
     __HAL_RCC_GPIOD_CLK_ENABLE();
     
     /**
-     * SDIO GPIO Configuration
-     * PC8     ------> SDIO D0
-     * PC9     ------> SDIO D1
-     * PC10    ------> SDIO D2 
-     * PC11    ------> SDIO D3 
-     * PC12    ------> SDIO SCK 
+     * PC8  ------> SDIO D0
+     * PC9  ------> SDIO D1
+     * PC10 ------> SDIO D2
+     * PC11 ------> SDIO D3
+     * PC12 ------> SDIO SCK
      */
     GPIO_Initure.Pin = GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12;
     GPIO_Initure.Mode = GPIO_MODE_AF_PP;
@@ -210,57 +232,62 @@ void HAL_SD_MspInit(SD_HandleTypeDef *hsd)
     HAL_GPIO_Init(GPIOC, &GPIO_Initure);
     
     /**
-     * SDIO GPIO Configuration
-     * PD2     ------> SDIO CMD
+     * PD2 ------> SDIO CMD
      */
     GPIO_Initure.Pin = GPIO_PIN_2;
     HAL_GPIO_Init(GPIOD, &GPIO_Initure);
     
-    /* set sd interrupt */
+    /* enable sd interrupt */
     HAL_NVIC_SetPriority(SDMMC1_IRQn, 3, 0);
     HAL_NVIC_EnableIRQ(SDMMC1_IRQn);
     
+    /* get tx dma handle */
+    sd_tx_dma_handle = sdio_get_tx_dma_handle();
+    
+    /* get rx dma handle */
+    sd_rx_dma_handle = sdio_get_rx_dma_handle();
+    
     /* set rx dma */
-    g_sd_rx_dma_handle.Instance = DMA2_Stream3;
-    g_sd_rx_dma_handle.Init.Channel = DMA_CHANNEL_4;
-    g_sd_rx_dma_handle.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    g_sd_rx_dma_handle.Init.PeriphInc = DMA_PINC_DISABLE;
-    g_sd_rx_dma_handle.Init.MemInc = DMA_MINC_ENABLE;
-    g_sd_rx_dma_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-    g_sd_rx_dma_handle.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
-    g_sd_rx_dma_handle.Init.Mode = DMA_PFCTRL;
-    g_sd_rx_dma_handle.Init.Priority = DMA_PRIORITY_VERY_HIGH;
-    g_sd_rx_dma_handle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
-    g_sd_rx_dma_handle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-    g_sd_rx_dma_handle.Init.MemBurst = DMA_MBURST_INC4;
-    g_sd_rx_dma_handle.Init.PeriphBurst = DMA_PBURST_INC4;
+    sd_rx_dma_handle->Instance = DMA2_Stream3;
+    sd_rx_dma_handle->Init.Channel = DMA_CHANNEL_4;
+    sd_rx_dma_handle->Init.Direction = DMA_PERIPH_TO_MEMORY;
+    sd_rx_dma_handle->Init.PeriphInc = DMA_PINC_DISABLE;
+    sd_rx_dma_handle->Init.MemInc = DMA_MINC_ENABLE;
+    sd_rx_dma_handle->Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+    sd_rx_dma_handle->Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+    sd_rx_dma_handle->Init.Mode = DMA_PFCTRL;
+    sd_rx_dma_handle->Init.Priority = DMA_PRIORITY_VERY_HIGH;
+    sd_rx_dma_handle->Init.FIFOMode = DMA_FIFOMODE_ENABLE;
+    sd_rx_dma_handle->Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+    sd_rx_dma_handle->Init.MemBurst = DMA_MBURST_INC4;
+    sd_rx_dma_handle->Init.PeriphBurst = DMA_PBURST_INC4;
 
     /* link rx dma */
-    __HAL_LINKDMA(hsd, hdmarx, g_sd_rx_dma_handle);
-    HAL_DMA_DeInit(&g_sd_rx_dma_handle);
-    HAL_DMA_Init(&g_sd_rx_dma_handle);
+    __HAL_LINKDMA(hsd, hdmarx, *sd_rx_dma_handle);
+    (void)HAL_DMA_DeInit(sd_rx_dma_handle);
+    (void)HAL_DMA_Init(sd_rx_dma_handle);
     
     /* set tx dma */
-    g_sd_tx_dma_handle.Instance = DMA2_Stream6;
-    g_sd_tx_dma_handle.Init.Channel = DMA_CHANNEL_4;
-    g_sd_tx_dma_handle.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    g_sd_tx_dma_handle.Init.PeriphInc = DMA_PINC_DISABLE;
-    g_sd_tx_dma_handle.Init.MemInc = DMA_MINC_ENABLE;
-    g_sd_tx_dma_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-    g_sd_tx_dma_handle.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
-    g_sd_tx_dma_handle.Init.Mode = DMA_PFCTRL;
-    g_sd_tx_dma_handle.Init.Priority = DMA_PRIORITY_VERY_HIGH;
-    g_sd_tx_dma_handle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
-    g_sd_tx_dma_handle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-    g_sd_tx_dma_handle.Init.MemBurst = DMA_MBURST_INC4;
-    g_sd_tx_dma_handle.Init.PeriphBurst = DMA_PBURST_INC4;
+    sd_tx_dma_handle->Instance = DMA2_Stream6;
+    sd_tx_dma_handle->Init.Channel = DMA_CHANNEL_4;
+    sd_tx_dma_handle->Init.Direction = DMA_MEMORY_TO_PERIPH;
+    sd_tx_dma_handle->Init.PeriphInc = DMA_PINC_DISABLE;
+    sd_tx_dma_handle->Init.MemInc = DMA_MINC_ENABLE;
+    sd_tx_dma_handle->Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+    sd_tx_dma_handle->Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+    sd_tx_dma_handle->Init.Mode = DMA_PFCTRL;
+    sd_tx_dma_handle->Init.Priority = DMA_PRIORITY_VERY_HIGH;
+    sd_tx_dma_handle->Init.FIFOMode = DMA_FIFOMODE_ENABLE;
+    sd_tx_dma_handle->Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+    sd_tx_dma_handle->Init.MemBurst = DMA_MBURST_INC4;
+    sd_tx_dma_handle->Init.PeriphBurst = DMA_PBURST_INC4;
     
     /* link tx dma */
-    __HAL_LINKDMA(hsd, hdmatx, g_sd_tx_dma_handle);
-    HAL_DMA_DeInit(&g_sd_tx_dma_handle);
-    HAL_DMA_Init(&g_sd_tx_dma_handle);
+    __HAL_LINKDMA(hsd, hdmatx, *sd_tx_dma_handle);
+    (void)HAL_DMA_DeInit(sd_tx_dma_handle);
+    (void)HAL_DMA_Init(sd_tx_dma_handle);
   
-    /* set sd dma interrupt */
+    /* enable dma interrupt */
     HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 4, 0);
     HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
     HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 5, 0);
@@ -268,25 +295,39 @@ void HAL_SD_MspInit(SD_HandleTypeDef *hsd)
 }
 
 /**
- * @brief     sd hal layer deinit
+ * @brief     sd hal deinit
  * @param[in] *hsd points to a sd handle
  * @note      none
  */
 void HAL_SD_MspDeInit(SD_HandleTypeDef *hsd)
 {
+    DMA_HandleTypeDef *sd_tx_dma_handle;
+    DMA_HandleTypeDef *sd_rx_dma_handle;
+    
+    /* disable sdio clock */
     __HAL_RCC_SDIO_CLK_DISABLE();
+    
+    /* disable dma2 clock */
     __HAL_RCC_DMA2_CLK_DISABLE();
     
-    /* deinit gpio */
+    /* deinit sd gpio */
     HAL_GPIO_DeInit(GPIOC, GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12);
     HAL_GPIO_DeInit(GPIOD, GPIO_PIN_2);
     
-    /* disable dma */
-    HAL_DMA_DeInit(&g_sd_tx_dma_handle);
-    HAL_DMA_DeInit(&g_sd_rx_dma_handle);
+    /* get tx dma handle */
+    sd_tx_dma_handle = sdio_get_tx_dma_handle();
     
-    /* disable sd and sd dma*/
+    /* get rx dma handle */
+    sd_rx_dma_handle = sdio_get_rx_dma_handle();
+    
+    /* disable dma */
+    (void)HAL_DMA_DeInit(sd_tx_dma_handle);
+    (void)HAL_DMA_DeInit(sd_rx_dma_handle);
+    
+    /* disable sd interrupt */
     HAL_NVIC_DisableIRQ(SDMMC1_IRQn);
+    
+    /* disable dma interrupt */
     HAL_NVIC_DisableIRQ(DMA2_Stream3_IRQn);
     HAL_NVIC_DisableIRQ(DMA2_Stream6_IRQn);
 }

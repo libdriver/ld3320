@@ -37,7 +37,7 @@
 #include "driver_ld3320_mp3_test.h"
 
 static ld3320_handle_t gs_handle;        /**< ld3320 handle */
-static uint8_t gs_flag;                  /**< global flag */
+static volatile uint8_t gs_flag;         /**< global flag */
 
 /**
  * @brief  mp3 test irq
@@ -69,7 +69,7 @@ static void a_callback(uint8_t type, uint8_t i, char *text)
 {
     if (type == LD3320_STATUS_MP3_LOAD)
     {
-        ld3320_interface_debug_print("ld3320: irq mp3 load.\n");
+        /* do nothing */
     }
     else if (type == LD3320_STATUS_MP3_END)
     {
@@ -99,7 +99,7 @@ uint8_t ld3320_mp3_test(char *name)
     
     /* link driver */
     DRIVER_LD3320_LINK_INIT(&gs_handle, ld3320_handle_t);
-    DRIVER_LD3320_LINK_SPI_INIT(&gs_handle, ld3320_interface_spi_high_speed_init);
+    DRIVER_LD3320_LINK_SPI_INIT(&gs_handle, ld3320_interface_spi_init);
     DRIVER_LD3320_LINK_SPI_DEINIT(&gs_handle, ld3320_interface_spi_deinit);
     DRIVER_LD3320_LINK_SPI_READ_ADDRESS16(&gs_handle, ld3320_interface_spi_read_address16);
     DRIVER_LD3320_LINK_SPI_WRITE_COMMAND(&gs_handle, ld3320_interface_spi_write_cmd);
@@ -128,7 +128,7 @@ uint8_t ld3320_mp3_test(char *name)
         ld3320_interface_debug_print("ld3320: chip is %s.\n", info.chip_name);
         ld3320_interface_debug_print("ld3320: manufacturer is %s.\n", info.manufacturer_name);
         ld3320_interface_debug_print("ld3320: interface is %s.\n", info.interface);
-        ld3320_interface_debug_print("ld3320: driver version is %d.%d.\n", info.driver_version/1000, (info.driver_version%1000)/100);
+        ld3320_interface_debug_print("ld3320: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
         ld3320_interface_debug_print("ld3320: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
         ld3320_interface_debug_print("ld3320: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
         ld3320_interface_debug_print("ld3320: max current is %0.2fmA.\n", info.max_current_ma);
