@@ -111,9 +111,9 @@ static void a_mp3_callback(uint8_t type, uint8_t index, char *text)
  * @param[in] argc is arg numbers
  * @param[in] **argv is the arg address
  * @return    status code
- *             - 0 success
- *             - 1 run failed
- *             - 5 param is invalid
+ *            - 0 success
+ *            - 1 run failed
+ *            - 5 param is invalid
  * @note      none
  */
 uint8_t ld3320(uint8_t argc, char **argv)
