@@ -166,9 +166,9 @@ uint8_t ld3320(uint8_t argc, char **argv)
         {"keyword", required_argument, NULL, 2},
         {NULL, 0, NULL, 0},
     };
-    char type[32] = "unknow";
-    char path[72]= "test.mp3";
-    char key[32]= "ha-lou";
+    char type[33] = "unknow";
+    char path[73]= "test.mp3";
+    char key[33]= "ha-lou";
     
     /* if no params */
     if (argc == 1)
@@ -193,7 +193,7 @@ uint8_t ld3320(uint8_t argc, char **argv)
             case 'h' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "h");
                 
                 break;
@@ -203,7 +203,7 @@ uint8_t ld3320(uint8_t argc, char **argv)
             case 'i' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "i");
                 
                 break;
@@ -213,7 +213,7 @@ uint8_t ld3320(uint8_t argc, char **argv)
             case 'p' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "p");
                 
                 break;
@@ -223,7 +223,7 @@ uint8_t ld3320(uint8_t argc, char **argv)
             case 'e' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "e_%s", optarg);
                 
                 break;
@@ -233,7 +233,7 @@ uint8_t ld3320(uint8_t argc, char **argv)
             case 't' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "t_%s", optarg);
                 
                 break;
@@ -243,7 +243,7 @@ uint8_t ld3320(uint8_t argc, char **argv)
             case 1 :
             {
                 /* set the file path */
-                memset(path, 0, sizeof(char) * 72);
+                memset(path, 0, sizeof(char) * 73);
                 strncpy(path, optarg, 72);
                 
                 break;
@@ -253,7 +253,7 @@ uint8_t ld3320(uint8_t argc, char **argv)
             case 2 :
             {
                 /* set the keyword */
-                memset(key, 0, sizeof(char) * 32);
+                memset(key, 0, sizeof(char) * 33);
                 strncpy(key, optarg, 32);
                 
                 break;
