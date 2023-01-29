@@ -72,10 +72,6 @@ Find the compiled library in CMake.
 find_package(ld3320 REQUIRED)
 ```
 
-#### 2.4 Problem
-
-There is some unknown problem in the gpio or spi interface of ld3320 on the raspberry board.When the end of playing mp3, no end interrupt can be catched, you may use some ways to catch the end of mp3 playing and deint the ld3320.
-
 ### 3. LD3320
 
 #### 3.1 Command Instruction
@@ -282,3 +278,6 @@ Options:
                           Run the driver test.
 ```
 
+#### 3.3 Command Problem
+
+There is some unknown problem in the gpio or spi interface of ld3320 on the raspberry board.When the end of playing mp3, no end interrupt can be catched, you may use some ways to catch the end of mp3 playing and deint the ld3320.
