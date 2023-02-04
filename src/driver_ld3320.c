@@ -93,7 +93,7 @@
 #define LD3320_REG_ANALOG_CONTROL2                  0x89        /**< analog control 2 register */
 #define LD3320_REG_GAIN_CONTROL                     0x8D        /**< internal gain control register */
 #define LD3320_REG_SPEAKER                          0x8E        /**< speaker register */
-#define LD3320_REG_LINEOUT                          0x8F        /**< lineout register */
+#define LD3320_REG_LINEOUT                          0x8F        /**< line out register */
 #define LD3320_REG_ASR_STATUS                       0xB2        /**< asr status register */
 #define LD3320_REG_ASR_VAD_PARAM                    0xB3        /**< asr vad param register */
 #define LD3320_REG_ASR_VAD_START                    0xB4        /**< asr vad start register */
@@ -395,10 +395,10 @@ static uint8_t a_ld3320_mp3_init(ld3320_handle_t *handle)
         
         return 1;                                                                     /* return error */
     }
-    res = a_ld3320_write_byte(handle, LD3320_REG_LINEOUT, 0x00);                      /* set lineout */
+    res = a_ld3320_write_byte(handle, LD3320_REG_LINEOUT, 0x00);                      /* set line out */
     if (res != 0)                                                                     /* check result */
     {
-        handle->debug_print("ld3320: set lineout failed.\n");                         /* set lineout failed */
+        handle->debug_print("ld3320: set line out failed.\n");                        /* set line out failed */
         
         return 1;                                                                     /* return error */
     }
@@ -475,31 +475,31 @@ static uint8_t a_ld3320_mp3_init(ld3320_handle_t *handle)
         
         return 1;                                                                     /* return error */
     }
-    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_MCU_WATER_MARK_L, 0x77);        /* set fifo mcu water mark low */
+    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_MCU_WATER_MARK_L, 0x77);        /* set fifo mcu watermark low */
     if (res != 0)                                                                     /* check result */
     {
-        handle->debug_print("ld3320: set fifo mcu water mark low failed.\n");         /* set fifo mcu water mark low failed */
+        handle->debug_print("ld3320: set fifo mcu water mark low failed.\n");         /* set fifo mcu watermark low failed */
         
         return 1;                                                                     /* return error */
     }
-    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_MCU_WATER_MARK_H, 0x03);        /* set fifo mcu water mark high */
+    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_MCU_WATER_MARK_H, 0x03);        /* set fifo mcu watermark high */
     if (res != 0)                                                                     /* check result */
     {
-        handle->debug_print("ld3320: set fifo mcu water mark high failed.\n");        /* set fifo mcu water mark high failed */
+        handle->debug_print("ld3320: set fifo mcu water mark high failed.\n");        /* set fifo mcu watermark high failed */
         
         return 1;                                                                     /* return error */
     }
-    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_DSP_WATER_MARK_L, 0xBB);        /* set fifo dsp water mark low */
+    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_DSP_WATER_MARK_L, 0xBB);        /* set fifo dsp watermark low */
     if (res != 0)                                                                     /* check result */
     {
-        handle->debug_print("ld3320: set fifo mcu water mark low failed.\n");         /* set fifo mcu water mark low failed */
+        handle->debug_print("ld3320: set fifo mcu water mark low failed.\n");         /* set fifo mcu watermark low failed */
         
         return 1;                                                                     /* return error */
     }
-    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_DSP_WATER_MARK_H, 0x01);        /* set fifo dsp water mark high */
+    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_DSP_WATER_MARK_H, 0x01);        /* set fifo dsp watermark high */
     if (res != 0)                                                                     /* check result */
     {
-        handle->debug_print("ld3320: set fifo mcu water mark high failed.\n");        /* set fifo mcu water mark high failed */
+        handle->debug_print("ld3320: set fifo mcu water mark high failed.\n");        /* set fifo mcu watermark high failed */
         
         return 1;                                                                     /* return error */
     }
@@ -638,31 +638,31 @@ static uint8_t a_ld3320_asr_init(ld3320_handle_t *handle)
         
         return 1;                                                                         /* return error */
     }
-    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_EXT_MCU_WATER_MARK_L, 0x00);        /* fifo ext mcu water mark low */
+    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_EXT_MCU_WATER_MARK_L, 0x00);        /* fifo ext mcu watermark low */
     if (res != 0)                                                                         /* check result */
     {
-        handle->debug_print("ld3320: set fifo ext mcu water mark low failed.\n");         /* set set fifo ext mcu water mark low failed */
+        handle->debug_print("ld3320: set fifo ext mcu water mark low failed.\n");         /* set fifo ext mcu watermark low failed */
         
         return 1;                                                                         /* return error */
     }
-    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_EXT_MCU_WATER_MARK_H, 0x08);        /* fifo ext mcu water mark high */
+    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_EXT_MCU_WATER_MARK_H, 0x08);        /* fifo ext mcu watermark high */
     if (res != 0)                                                                         /* check result */
     {
-        handle->debug_print("ld3320: set fifo ext mcu water mark high failed.\n");        /* set set fifo ext mcu water mark high failed */
+        handle->debug_print("ld3320: set fifo ext mcu water mark high failed.\n");        /* set fifo ext mcu watermark high failed */
         
         return 1;                                                                         /* return error */
     }
-    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_EXT_DSP_WATER_MARK_L, 0x00);        /* fifo ext mcu water mark low */
+    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_EXT_DSP_WATER_MARK_L, 0x00);        /* fifo ext mcu watermark low */
     if (res != 0)                                                                         /* check result */
     {
-        handle->debug_print("ld3320: set fifo ext mcu water mark low failed.\n");         /* set set fifo ext mcu water mark low failed */
+        handle->debug_print("ld3320: set fifo ext mcu water mark low failed.\n");         /* set fifo ext mcu watermark low failed */
         
         return 1;                                                                         /* return error */
     }
-    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_EXT_DSP_WATER_MARK_H, 0x08);        /* fifo ext mcu water mark high */
+    res = a_ld3320_write_byte(handle, LD3320_REG_FIFO_EXT_DSP_WATER_MARK_H, 0x08);        /* fifo ext mcu watermark high */
     if (res != 0)                                                                         /* check result */
     {
-        handle->debug_print("ld3320: set fifo ext mcu water mark high failed.\n");        /* set set fifo ext mcu water mark high failed */
+        handle->debug_print("ld3320: set fifo ext mcu water mark high failed.\n");        /* set fifo ext mcu watermark high failed */
         
         return 1;                                                                         /* return error */
     }
@@ -766,7 +766,7 @@ static uint8_t a_ld3320_asr_start(ld3320_handle_t *handle, uint8_t mic_gain, uin
         return 1;                                                               /* return error */
     }
     handle->delay_ms(2);                                                        /* delay 2 ms */
-    res = a_ld3320_check_asr_busy(handle, (uint8_t *)&s);                       /* chek asr busy */
+    res = a_ld3320_check_asr_busy(handle, (uint8_t *)&s);                       /* check asr busy */
     if (res != 0)                                                               /* check result */
     {
         handle->debug_print("ld3320: check asr busy failed.\n");                /* check asr busy failed */
@@ -1675,7 +1675,7 @@ uint8_t ld3320_irq_handler(ld3320_handle_t *handle)
             handle->running_status = LD3320_STATUS_MP3_LOAD;                                      /* set load */
         }
     }
-    else                                                                                          /* unknow mode */
+    else                                                                                          /* unknown mode */
     {
         handle->debug_print("ld3320: mode is invalid.\n");                                        /* mode is invalid failed */
        
@@ -1718,7 +1718,7 @@ uint8_t ld3320_irq_handler(ld3320_handle_t *handle)
     }
     else
     {
-        handle->debug_print("ld3320: unknow status.\n");                                          /* unknow status failed */
+        handle->debug_print("ld3320: unknown status.\n");                                         /* unknown status failed */
             
         return 1;                                                                                 /* return error */
     }
@@ -1754,7 +1754,7 @@ uint8_t ld3320_start(ld3320_handle_t *handle)
         res = a_ld3320_run_asr(handle);                                          /* run asr */
         if (res != 0)                                                            /* check result */
         {
-            handle->debug_print("ld3320: run adr failed.\n");                    /* run receive callback failed failed */
+            handle->debug_print("ld3320: run adr failed.\n");                    /* run receive callback failed */
             
             return 1;                                                            /* return error */
         }
@@ -2313,7 +2313,7 @@ uint8_t ld3320_info(ld3320_info_t *info)
     info->max_current_ma = MAX_CURRENT;                             /* set maximum current */
     info->temperature_max = TEMPERATURE_MAX;                        /* set minimal temperature */
     info->temperature_min = TEMPERATURE_MIN;                        /* set maximum temperature */
-    info->driver_version = DRIVER_VERSION;                          /* set driver verison */
+    info->driver_version = DRIVER_VERSION;                          /* set driver version */
     
     return 0;                                                       /* success return 0 */
 }

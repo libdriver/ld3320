@@ -111,7 +111,7 @@ static void a_asr_callback(uint8_t type, uint8_t i, char *text)
     }
     else
     {
-        ld3320_interface_debug_print("ld3320: irq unknow type.\n");
+        ld3320_interface_debug_print("ld3320: irq unknown type.\n");
     }
 }
 
@@ -136,7 +136,7 @@ static void a_mp3_callback(uint8_t type, uint8_t i, char *text)
     }
     else
     {
-        ld3320_interface_debug_print("ld3320: irq unknow type.\n");
+        ld3320_interface_debug_print("ld3320: irq unknown type.\n");
     }
 }
 
@@ -166,7 +166,7 @@ uint8_t ld3320(uint8_t argc, char **argv)
         {"keyword", required_argument, NULL, 2},
         {NULL, 0, NULL, 0},
     };
-    char type[33] = "unknow";
+    char type[33] = "unknown";
     char path[73]= "test.mp3";
     char key[33]= "ha-lou";
     
@@ -619,7 +619,7 @@ int main(void)
     /* uart init */
     uart_init(115200);
     
-    /* shell init && register ld3320 fuction */
+    /* shell init && register ld3320 function */
     shell_init();
     shell_register("ld3320", ld3320);
     uart_print("ld3320: welcome to libdriver ld3320.\n");
@@ -642,7 +642,7 @@ int main(void)
             }
             else if (res == 2)
             {
-                uart_print("ld3320: unknow command.\n");
+                uart_print("ld3320: unknown command.\n");
             }
             else if (res == 3)
             {
@@ -658,7 +658,7 @@ int main(void)
             }
             else
             {
-                uart_print("ld3320: unknow status code.\n");
+                uart_print("ld3320: unknown status code.\n");
             }
             uart_flush();
         }
