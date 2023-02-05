@@ -271,7 +271,7 @@ void ld3320_interface_receive_callback(uint8_t type, uint8_t ind, char *text)
     }
     else
     {
-        ld3320_interface_debug_print("ld3320: irq unknow type.\n");
+        ld3320_interface_debug_print("ld3320: irq unknown type.\n");
     }
 }
 

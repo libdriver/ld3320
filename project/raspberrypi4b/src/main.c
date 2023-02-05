@@ -77,7 +77,7 @@ static void a_asr_callback(uint8_t type, uint8_t index, char *text)
     }
     else
     {
-        ld3320_interface_debug_print("ld3320: irq unknow type.\n");
+        ld3320_interface_debug_print("ld3320: irq unknown type.\n");
     }
 }
 
@@ -102,7 +102,7 @@ static void a_mp3_callback(uint8_t type, uint8_t index, char *text)
     }
     else
     {
-        ld3320_interface_debug_print("ld3320: irq unknow type.\n");
+        ld3320_interface_debug_print("ld3320: irq unknown type.\n");
     }
 }
 
@@ -132,7 +132,7 @@ uint8_t ld3320(uint8_t argc, char **argv)
         {"keyword", required_argument, NULL, 2},
         {NULL, 0, NULL, 0},
     };
-    char type[33] = "unknow";
+    char type[33] = "unknown";
     char path[73]= "test.mp3";
     char key[33]= "ha-lou";
     
@@ -595,7 +595,7 @@ int main(uint8_t argc, char **argv)
     }
     else
     {
-        ld3320_interface_debug_print("ld3320: unknow status code.\n");
+        ld3320_interface_debug_print("ld3320: unknown status code.\n");
     }
 
     return 0;

@@ -44,7 +44,7 @@
  */
 #define SPI_DEVICE_NAME "/dev/spidev0.0"    /**< spi device name */
 /**
- * @brief spi device hanble definition
+ * @brief spi device handle definition
  */
 static int gs_fd;                           /**< spi handle */
 static FILE *gs_fp = NULL;                  /**< fp handle */
@@ -219,7 +219,7 @@ void ld3320_interface_receive_callback(uint8_t type, uint8_t ind, char *text)
     }
     else
     {
-        ld3320_interface_debug_print("ld3320: irq unknow type.\n");
+        ld3320_interface_debug_print("ld3320: irq unknown type.\n");
     }
 }
 
