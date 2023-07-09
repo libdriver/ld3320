@@ -163,7 +163,7 @@ uint8_t ld3320_interface_mp3_read(uint32_t addr, uint16_t size, uint8_t *buffer)
     {
         return 1;
     }
-    if (fread((void *)buffer, 1, size, gs_fp) != size)
+    if (fread((void *)buffer, 1, size, gs_fp) < 0)
     {
         return 1;
     }
