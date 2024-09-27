@@ -82,7 +82,7 @@ uint8_t sdio_init(void)
     }
     
     /* set sdio bus wide 4b */
-    res = HAL_SD_ConfigWideBusOperation(&g_sd_handle, SDIO_BUS_WIDE_4B);
+    res = HAL_SD_ConfigWideBusOperation(&g_sd_handle, SDIO_BUS_WIDE_1B);
     if(res != HAL_OK)
     {
         return 3;
