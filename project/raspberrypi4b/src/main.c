@@ -48,9 +48,9 @@ uint8_t (*g_gpio_irq)(void) = NULL;        /**< gpio irq */
 
 /**
  * @brief     asr callback
- * @param[in] type is the irq type
- * @param[in] index is the asr index
- * @param[in] *text points to a asr result buffer
+ * @param[in] type irq type
+ * @param[in] index asr index
+ * @param[in] *text pointer to a asr result buffer
  * @note      none
  */
 static void a_asr_callback(uint8_t type, uint8_t index, char *text)
@@ -83,9 +83,9 @@ static void a_asr_callback(uint8_t type, uint8_t index, char *text)
 
 /**
  * @brief     mp3 callback
- * @param[in] type is the irq type
- * @param[in] index is the asr index
- * @param[in] *text points to a asr result buffer
+ * @param[in] type irq type
+ * @param[in] index asr index
+ * @param[in] *text pointer to a asr result buffer
  * @note      none
  */
 static void a_mp3_callback(uint8_t type, uint8_t index, char *text)
@@ -108,8 +108,8 @@ static void a_mp3_callback(uint8_t type, uint8_t index, char *text)
 
 /**
  * @brief     ld3320 full function
- * @param[in] argc is arg numbers
- * @param[in] **argv is the arg address
+ * @param[in] argc arg numbers
+ * @param[in] **argv arg address
  * @return    status code
  *            - 0 success
  *            - 1 run failed
@@ -570,8 +570,8 @@ uint8_t ld3320(uint8_t argc, char **argv)
 
 /**
  * @brief     main function
- * @param[in] argc is arg numbers
- * @param[in] **argv is the arg address
+ * @param[in] argc arg numbers
+ * @param[in] **argv arg address
  * @return    status code
  *             - 0 success
  * @note      none

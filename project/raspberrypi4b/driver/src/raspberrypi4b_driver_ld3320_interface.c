@@ -75,9 +75,9 @@ uint8_t ld3320_interface_spi_deinit(void)
 
 /**
  * @brief      interface spi bus read
- * @param[in]  reg is the register address
- * @param[out] *buf points to a data buffer
- * @param[in]  len is the length of data buffer
+ * @param[in]  reg register address
+ * @param[out] *buf pointer to a data buffer
+ * @param[in]  len length of data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
@@ -90,8 +90,8 @@ uint8_t ld3320_interface_spi_read_address16(uint16_t reg, uint8_t *buf, uint16_t
 
 /**
  * @brief     interface spi bus write
- * @param[in] *buf points to a data buffer
- * @param[in] len is the length of data buffer
+ * @param[in] *buf pointer to a data buffer
+ * @param[in] len length of data buffer
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -104,7 +104,7 @@ uint8_t ld3320_interface_spi_write_cmd(uint8_t *buf, uint16_t len)
 
 /**
  * @brief     interface delay ms
- * @param[in] ms
+ * @param[in] ms time
  * @note      none
  */
 void ld3320_interface_delay_ms(uint32_t ms)
@@ -114,7 +114,7 @@ void ld3320_interface_delay_ms(uint32_t ms)
 
 /**
  * @brief     interface delay us
- * @param[in] us
+ * @param[in] us time
  * @note      none
  */
 void ld3320_interface_delay_us(uint32_t us)
@@ -124,8 +124,8 @@ void ld3320_interface_delay_us(uint32_t us)
 
 /**
  * @brief     interface mp3 init
- * @param[in] *name points to a name buffer
- * @param[in] *size points to a file size buffer
+ * @param[in] *name pointer to a name buffer
+ * @param[in] *size pointer to a file size buffer
  * @return    status code
  *            - 0 success
  *            - 1 mp3 init failed
@@ -149,9 +149,9 @@ uint8_t ld3320_interface_mp3_init(char *name, uint32_t *size)
 
 /**
  * @brief      interface mp3 read
- * @param[in]  addr is the mp3 file address
- * @param[in]  size is the read size
- * @param[out] *buffer points to a data buffer
+ * @param[in]  addr mp3 file address
+ * @param[in]  size read size
+ * @param[out] *buffer pointer to a data buffer
  * @return     status code
  *             - 0 success
  *             - 1 mp3 read failed
@@ -190,8 +190,8 @@ uint8_t ld3320_interface_mp3_deinit(void)
 
 /**
  * @brief     interface receive callback
- * @param[in] type is the receive callback type
- * @param[in] ind is the index
+ * @param[in] type receive callback type
+ * @param[in] ind index
  * @param[in] *text points to a text buffer
  * @note      none
  */
@@ -249,7 +249,7 @@ uint8_t ld3320_interface_reset_gpio_deinit(void)
 
 /**
  * @brief     interface reset gpio write
- * @param[in] data is the written data
+ * @param[in] data written data
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -262,7 +262,7 @@ uint8_t ld3320_interface_reset_gpio_write(uint8_t data)
 
 /**
  * @brief     interface print format data
- * @param[in] fmt is the format data
+ * @param[in] fmt format data
  * @note      none
  */
 void ld3320_interface_debug_print(const char *const fmt, ...)

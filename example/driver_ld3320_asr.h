@@ -67,7 +67,7 @@ uint8_t ld3320_asr_irq_handler(void);
 
 /**
  * @brief     asr example init
- * @param[in] *receive_callback points to a receive callback address
+ * @param[in] *receive_callback pointer to a receive callback address
  * @return    status code
  *            - 0 success
  *            - 1 init failed
@@ -86,8 +86,8 @@ uint8_t ld3320_asr_deinit(void);
 
 /**
  * @brief     asr example set keys
- * @param[in] **text points to a text buffer
- * @param[in] len is the text length
+ * @param[in] **text pointer to a text buffer
+ * @param[in] len text length
  * @return    status code
  *            - 0 success
  *            - 1 set keys failed

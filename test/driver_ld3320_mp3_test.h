@@ -59,7 +59,7 @@ uint8_t ld3320_mp3_test_irq_handler(void);
 
 /**
  * @brief     mp3 test
- * @param[in] *name points to a name buffer
+ * @param[in] *name pointer to a name buffer
  * @return    status code
  *            - 0 success
  *            - 1 test failed
