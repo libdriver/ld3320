@@ -171,7 +171,7 @@ Functions</h2></td></tr>
 <p>interface print format data </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">fmt</td><td>is the format data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fmt</td><td>format data </td></tr>
   </table>
   </dd>
 </dl>
@@ -200,7 +200,7 @@ Functions</h2></td></tr>
 <p>interface delay ms </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">ms</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ms</td><td>time </td></tr>
   </table>
   </dd>
 </dl>
@@ -229,7 +229,7 @@ Functions</h2></td></tr>
 <p>interface delay us </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">us</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">us</td><td>time </td></tr>
   </table>
   </dd>
 </dl>
@@ -296,8 +296,8 @@ Functions</h2></td></tr>
 <p>interface mp3 init </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*name</td><td>points to a name buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*size</td><td>points to a file size buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*name</td><td>pointer to a name buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*size</td><td>pointer to a file size buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -347,9 +347,9 @@ Functions</h2></td></tr>
 <p>interface mp3 read </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>is the mp3 file address </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>is the read size </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*buffer</td><td>points to a data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>mp3 file address </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>read size </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*buffer</td><td>pointer to a data buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -399,9 +399,9 @@ Functions</h2></td></tr>
 <p>interface receive callback </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>is the receive callback type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ind</td><td>is the index </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*text</td><td>points to a text buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>receive callback type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ind</td><td>index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*text</td><td>pointer to a text buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -486,7 +486,7 @@ Functions</h2></td></tr>
 <p>interface reset gpio write </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>is the written data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>written data </td></tr>
   </table>
   </dd>
 </dl>
@@ -592,9 +592,9 @@ Functions</h2></td></tr>
 <p>interface spi bus read </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">reg</td><td>is the register address </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*buf</td><td>points to a data buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>is the length of data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">reg</td><td>register address </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*buf</td><td>pointer to a data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>length of data buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -638,8 +638,8 @@ Functions</h2></td></tr>
 <p>interface spi bus write </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*buf</td><td>points to a data buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>is the length of data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*buf</td><td>pointer to a data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>length of data buffer </td></tr>
   </table>
   </dd>
 </dl>

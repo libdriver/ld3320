@@ -65,8 +65,8 @@ uint8_t ld3320_mp3_irq_handler(void);
 
 /**
  * @brief     mp3 example init
- * @param[in] *name points to a mp3 file name buffer
- * @param[in] *receive_callback points to a receive callback address
+ * @param[in] *name pointer to a mp3 file name buffer
+ * @param[in] *receive_callback pointer to a receive callback address
  * @return    status code
  *            - 0 success
  *            - 1 init failed

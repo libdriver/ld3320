@@ -66,7 +66,7 @@ void EXTI0_IRQHandler(void)
 
 /**
  * @brief     gpio exti callback
- * @param[in] pin is the gpio pin
+ * @param[in] pin gpio pin
  * @note      none
  */
 void HAL_GPIO_EXTI_Callback(uint16_t pin)
@@ -82,9 +82,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin)
 
 /**
  * @brief     asr callback
- * @param[in] type is the irq type
- * @param[in] i is the asr index
- * @param[in] *text points to a asr result buffer
+ * @param[in] type irq type
+ * @param[in] i asr index
+ * @param[in] *text pointer to a asr result buffer
  * @note      none
  */
 static void a_asr_callback(uint8_t type, uint8_t i, char *text)
@@ -117,9 +117,9 @@ static void a_asr_callback(uint8_t type, uint8_t i, char *text)
 
 /**
  * @brief     mp3 callback
- * @param[in] type is the irq type
- * @param[in] i is the asr index
- * @param[in] *text points to a asr result buffer
+ * @param[in] type irq type
+ * @param[in] i asr index
+ * @param[in] *text pointer to a asr result buffer
  * @note      none
  */
 static void a_mp3_callback(uint8_t type, uint8_t i, char *text)
@@ -142,8 +142,8 @@ static void a_mp3_callback(uint8_t type, uint8_t i, char *text)
 
 /**
  * @brief     ld3320 full function
- * @param[in] argc is arg numbers
- * @param[in] **argv is the arg address
+ * @param[in] argc arg numbers
+ * @param[in] **argv arg address
  * @return    status code
  *            - 0 success
  *            - 1 run failed

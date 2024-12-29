@@ -60,9 +60,9 @@ uint8_t ld3320_asr_test_irq_handler(void)
 
 /**
  * @brief     asr callback
- * @param[in] type is the irq type
- * @param[in] i is the asr index
- * @param[in] *text points to a asr result buffer
+ * @param[in] type irq type
+ * @param[in] i asr index
+ * @param[in] *text pointer to a asr result buffer
  * @note      none
  */
 static void a_callback(uint8_t type, uint8_t i, char *text)

@@ -166,120 +166,120 @@ typedef struct ld3320_info_s
 
 /**
  * @brief     initialize ld3320_handle_t structure
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] STRUCTURE is ld3320_handle_t
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] STRUCTURE ld3320_handle_t
  * @note      none
  */
 #define DRIVER_LD3320_LINK_INIT(HANDLE, STRUCTURE)                    memset(HANDLE, 0, sizeof(STRUCTURE))
 
 /**
  * @brief     link spi_init function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a spi_init function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a spi_init function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_SPI_INIT(HANDLE, FUC)                      (HANDLE)->spi_init = FUC
 
 /**
  * @brief     link spi_deinit function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a spi_deinit function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a spi_deinit function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_SPI_DEINIT(HANDLE, FUC)                    (HANDLE)->spi_deinit = FUC
 
 /**
  * @brief     link spi_read_address16 function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a spi_read_address16 function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a spi_read_address16 function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_SPI_READ_ADDRESS16(HANDLE, FUC)            (HANDLE)->spi_read_address16 = FUC
 
 /**
  * @brief     link spi_write_cmd function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a spi_write_cmd function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a spi_write_cmd function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_SPI_WRITE_COMMAND(HANDLE, FUC)             (HANDLE)->spi_write_cmd = FUC
 
 /**
  * @brief     link reset_gpio_init function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a reset_gpio_init function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a reset_gpio_init function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_RESET_GPIO_INIT(HANDLE, FUC)               (HANDLE)->reset_gpio_init = FUC
 
 /**
  * @brief     link reset_gpio_deinit function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a reset_gpio_deinit function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a reset_gpio_deinit function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_RESET_GPIO_DEINIT(HANDLE, FUC)             (HANDLE)->reset_gpio_deinit = FUC
 
 /**
  * @brief     link reset_gpio_write function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a reset_gpio_write function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a reset_gpio_write function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_RESET_GPIO_WRITE(HANDLE, FUC)              (HANDLE)->reset_gpio_write = FUC
 
 /**
  * @brief     link delay_ms function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a delay_ms function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a delay_ms function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_DELAY_MS(HANDLE, FUC)                      (HANDLE)->delay_ms = FUC
 
 /**
  * @brief     link delay_us function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a delay_us function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a delay_us function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_DELAY_US(HANDLE, FUC)                      (HANDLE)->delay_us = FUC
 
 /**
  * @brief     link debug_print function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a debug_print function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a debug_print function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_DEBUG_PRINT(HANDLE, FUC)                   (HANDLE)->debug_print = FUC
 
 /**
  * @brief     link receive_callback function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to a receive_callback function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to a receive_callback function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_DEBUG_RECEIVE_CALLBACK(HANDLE, FUC)        (HANDLE)->receive_callback = FUC
 
 /**
  * @brief     link mp3_read_init function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to an mp3_read_init function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to an mp3_read_init function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_MP3_READ_INT(HANDLE, FUC)                  (HANDLE)->mp3_read_init = FUC
 
 /**
  * @brief     link mp3_read_deinit function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to an mp3_read_deinit function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to an mp3_read_deinit function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_MP3_READ_DEINT(HANDLE, FUC)                (HANDLE)->mp3_read_deinit = FUC
 
 /**
  * @brief     link mp3_read function
- * @param[in] HANDLE points to an ld3320 handle structure
- * @param[in] FUC points to an mp3_read function address
+ * @param[in] HANDLE pointer to an ld3320 handle structure
+ * @param[in] FUC pointer to an mp3_read function address
  * @note      none
  */
 #define DRIVER_LD3320_LINK_MP3_READ(HANDLE, FUC)                      (HANDLE)->mp3_read = FUC
@@ -297,7 +297,7 @@ typedef struct ld3320_info_s
 
 /**
  * @brief      get chip's information
- * @param[out] *info points to an ld3320 info structure
+ * @param[out] *info pointer to an ld3320 info structure
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -307,7 +307,7 @@ uint8_t ld3320_info(ld3320_info_t *info);
 
 /**
  * @brief     irq handler
- * @param[in] *handle points to an ld3320 handle structure
+ * @param[in] *handle pointer to an ld3320 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 run failed
@@ -320,7 +320,7 @@ uint8_t ld3320_irq_handler(ld3320_handle_t *handle);
 
 /**
  * @brief     initialize the chip
- * @param[in] *handle points to an ld3320 handle structure
+ * @param[in] *handle pointer to an ld3320 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 spi initialization failed
@@ -333,7 +333,7 @@ uint8_t ld3320_init(ld3320_handle_t *handle);
 
 /**
  * @brief     deinit the chip
- * @param[in] *handle points to an ld3320 handle structure
+ * @param[in] *handle pointer to an ld3320 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 deinit failed
@@ -348,7 +348,7 @@ uint8_t ld3320_deinit(ld3320_handle_t *handle);
 
 /**
  * @brief     start the process
- * @param[in] *handle points to an ld3320 handle structure
+ * @param[in] *handle pointer to an ld3320 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 start failed
@@ -360,7 +360,7 @@ uint8_t ld3320_start(ld3320_handle_t *handle);
 
 /**
  * @brief     stop the process
- * @param[in] *handle points to an ld3320 handle structure
+ * @param[in] *handle pointer to an ld3320 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 stop failed
@@ -372,8 +372,8 @@ uint8_t ld3320_stop(ld3320_handle_t *handle);
 
 /**
  * @brief     configure the mp3
- * @param[in] *handle points to an ld3320 handle structure
- * @param[in] *name points to a name buffer
+ * @param[in] *handle pointer to an ld3320 handle structure
+ * @param[in] *name pointer to a name buffer
  * @return    status code
  *            - 0 success
  *            - 1 configure mp3 failed
@@ -385,8 +385,8 @@ uint8_t ld3320_configure_mp3(ld3320_handle_t *handle, char *name);
 
 /**
  * @brief     set the chip mode
- * @param[in] *handle points to an ld3320 handle structure
- * @param[in] mode is the chip mode
+ * @param[in] *handle pointer to an ld3320 handle structure
+ * @param[in] mode chip mode
  * @return    status code
  *            - 0 success
  *            - 2 handle is NULL
@@ -397,8 +397,8 @@ uint8_t ld3320_set_mode(ld3320_handle_t *handle, ld3320_mode_t mode);
 
 /**
  * @brief      get the chip mode
- * @param[in]  *handle points to an ld3320 handle structure
- * @param[out] *mode points to a chip mode buffer
+ * @param[in]  *handle pointer to an ld3320 handle structure
+ * @param[out] *mode pointer to a chip mode buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -409,9 +409,9 @@ uint8_t ld3320_get_mode(ld3320_handle_t *handle, ld3320_mode_t *mode);
 
 /**
  * @brief     set the key words
- * @param[in] *handle points to an ld3320 handle structure
- * @param[in] **text points to a text buffer
- * @param[in] len is the key words length
+ * @param[in] *handle pointer to an ld3320 handle structure
+ * @param[in] **text pointer to a text buffer
+ * @param[in] len key words length
  * @return    status code
  *            - 0 success
  *            - 2 handle is NULL
@@ -422,9 +422,9 @@ uint8_t ld3320_set_key_words(ld3320_handle_t *handle, char text[50][50], uint8_t
 
 /**
  * @brief      get the key words
- * @param[in]  *handle points to an ld3320 handle structure
- * @param[out] **text points to a text buffer
- * @param[out] *len points to a key words length buffer
+ * @param[in]  *handle pointer to an ld3320 handle structure
+ * @param[out] **text pointer to a text buffer
+ * @param[out] *len pointer to a key words length buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -435,8 +435,8 @@ uint8_t ld3320_get_key_words(ld3320_handle_t *handle, char text[50][50], uint8_t
 
 /**
  * @brief     set the microphone gain
- * @param[in] *handle points to an ld3320 handle structure
- * @param[in] gain is microphone gain
+ * @param[in] *handle pointer to an ld3320 handle structure
+ * @param[in] gain microphone gain
  * @return    status code
  *            - 0 success
  *            - 2 handle is NULL
@@ -447,8 +447,8 @@ uint8_t ld3320_set_mic_gain(ld3320_handle_t *handle, ld3320_mic_gain_t gain);
 
 /**
  * @brief      get the microphone gain
- * @param[in]  *handle points to an ld3320 handle structure
- * @param[out] *gain points to a microphone gain buffer
+ * @param[in]  *handle pointer to an ld3320 handle structure
+ * @param[out] *gain pointer to a microphone gain buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -459,8 +459,8 @@ uint8_t ld3320_get_mic_gain(ld3320_handle_t *handle, ld3320_mic_gain_t *gain);
 
 /**
  * @brief     set the vad
- * @param[in] *handle points to an ld3320 handle structure
- * @param[in] vad is the vad param
+ * @param[in] *handle pointer to an ld3320 handle structure
+ * @param[in] vad vad param
  * @return    status code
  *            - 0 success
  *            - 2 handle is NULL
@@ -471,8 +471,8 @@ uint8_t ld3320_set_vad(ld3320_handle_t *handle, ld3320_vad_t vad);
 
 /**
  * @brief      get the vad
- * @param[in]  *handle points to an ld3320 handle structure
- * @param[out] *vad points to a vad param buffer
+ * @param[in]  *handle pointer to an ld3320 handle structure
+ * @param[out] *vad pointer to a vad param buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -483,8 +483,8 @@ uint8_t ld3320_get_vad(ld3320_handle_t *handle, ld3320_vad_t *vad);
 
 /**
  * @brief      get the status
- * @param[in]  *handle points to an ld3320 handle structure
- * @param[out] *status points to a status buffer
+ * @param[in]  *handle pointer to an ld3320 handle structure
+ * @param[out] *status pointer to a status buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -495,8 +495,8 @@ uint8_t ld3320_get_status(ld3320_handle_t *handle, ld3320_status_t *status);
 
 /**
  * @brief     set the speaker volume
- * @param[in] *handle points to an ld3320 handle structure
- * @param[in] volume is the speaker volume
+ * @param[in] *handle pointer to an ld3320 handle structure
+ * @param[in] volume speaker volume
  * @return    status code
  *            - 0 success
  *            - 1 set speaker volume
@@ -509,8 +509,8 @@ uint8_t ld3320_set_speaker_volume(ld3320_handle_t *handle, uint8_t volume);
 
 /**
  * @brief      get the speaker volume
- * @param[in]  *handle points to an ld3320 handle structure
- * @param[out] *volume points to a speaker volume buffer
+ * @param[in]  *handle pointer to an ld3320 handle structure
+ * @param[out] *volume pointer to a speaker volume buffer
  * @return     status code
  *             - 0 success
  *             - 1 get speaker volume
@@ -522,9 +522,9 @@ uint8_t ld3320_get_speaker_volume(ld3320_handle_t *handle, uint8_t *volume);
 
 /**
  * @brief     set the headset volume
- * @param[in] *handle points to an ld3320 handle structure
- * @param[in] volume_left is the left volume
- * @param[in] volume_right is the right volume
+ * @param[in] *handle pointer to an ld3320 handle structure
+ * @param[in] volume_left left volume
+ * @param[in] volume_right right volume
  * @return    status code
  *            - 0 success
  *            - 1 set headset volume
@@ -537,9 +537,9 @@ uint8_t ld3320_set_headset_volume(ld3320_handle_t *handle, uint8_t volume_left, 
 
 /**
  * @brief      get the headset volume
- * @param[in]  *handle points to an ld3320 handle structure
- * @param[out] *volume_left points to a left volume buffer
- * @param[out] *volume_right points to a right volume buffer
+ * @param[in]  *handle pointer to an ld3320 handle structure
+ * @param[out] *volume_left pointer to a left volume buffer
+ * @param[out] *volume_right pointer to a right volume buffer
  * @return     status code
  *             - 0 success
  *             - 1 get headset volume
@@ -562,9 +562,9 @@ uint8_t ld3320_get_headset_volume(ld3320_handle_t *handle, uint8_t *volume_left,
 
 /**
  * @brief     set the chip register
- * @param[in] *handle points to an ld3320 handle structure
- * @param[in] reg is the register address
- * @param[in] data is the write data
+ * @param[in] *handle pointer to an ld3320 handle structure
+ * @param[in] reg register address
+ * @param[in] data written data
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -576,9 +576,9 @@ uint8_t ld3320_set_reg(ld3320_handle_t *handle, uint8_t reg, uint8_t data);
 
 /**
  * @brief      get the chip register
- * @param[in]  *handle points to an ld3320 handle structure
- * @param[in]  reg is the register address
- * @param[out] *data points to a data buffer
+ * @param[in]  *handle pointer to an ld3320 handle structure
+ * @param[in]  reg register address
+ * @param[out] *data pointer to a data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
