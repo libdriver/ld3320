@@ -148,13 +148,13 @@ void ld3320_interface_delay_us(uint32_t us)
 }
 
 /**
- * @brief     interface mp3 init
- * @param[in] *name pointer to a name buffer
- * @param[in] *size pointer to a file size buffer
- * @return    status code
- *            - 0 success
- *            - 1 mp3 init failed
- * @note      none
+ * @brief      interface mp3 init
+ * @param[in]  *name pointer to a name buffer
+ * @param[out] *size pointer to a file size buffer
+ * @return     status code
+ *             - 0 success
+ *             - 1 mp3 init failed
+ * @note       none
  */
 uint8_t ld3320_interface_mp3_init(char *name, uint32_t *size)
 {
