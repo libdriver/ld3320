@@ -1,11 +1,11 @@
 /**
  * @mainpage  LibDriver LD3320
- * @brief     LibDriver LD3320 is a full function driver of LD3320 and it can run in both MCU and Linux platform.
+ * @brief     LibDriver LD3320 is a full-featured driver of LD3320 and it can run in both MCU and Linux platform.
  * @version   1.0.0
  * @author    Shifeng Li
  * @date      2021-05-12
  *
- * <h3>history</h3>
+ * <h3>History</h3>
  * <table>
  * <tr><th>Date        <th>Version  <th>Author      <th>Description
  * <tr><td>2021/05/12  <td>1.0      <td>Shifeng Li  <td>first upload
