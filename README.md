@@ -10,7 +10,7 @@
 
 Ld3320 is a special chip for speech recognition. The chip integrates speech recognition processor and some external circuits, including AD, DA converter, microphone interface, voice output interface and so on. This chip does not need any auxiliary chips such as FLASH, RAM, etc. it can be directly integrated into the existing products to realize the voice recognition / voice control / human-computer dialogue function. The key words list can be edited dynamically. The chip is used in induction cooker, microwave oven, smart home appliance operation, navigator, MP3, MP4, vending machine, public lighting system, health system and smart home voice control.
 
-LibDriver LD3320 is the full function driver of LD3320 launched by LibDriver.It provides voice recognition, MP3 playback and other functions. LibDriver is MISRA compliant.
+LibDriver LD3320 is a full-featured driver of LD3320 launched by LibDriver.It provides voice recognition, MP3 playback and other functions. LibDriver is MISRA compliant.
 
 ### Table of Contents
 

@@ -58,7 +58,7 @@ static FILE *gs_fp = NULL;                  /**< fp handle */
  */
 uint8_t ld3320_interface_spi_init(void)
 {
-    return spi_init(SPI_DEVICE_NAME, &gs_fd, SPI_MODE_TYPE_2, 1000 * 1000 * 2);
+    return spi_init(SPI_DEVICE_NAME, &gs_fd, SPI_MODE_TYPE_2, 1000 * 1000);
 }
 
 /**
