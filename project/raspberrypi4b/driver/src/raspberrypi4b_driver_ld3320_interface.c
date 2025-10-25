@@ -268,7 +268,6 @@ uint8_t ld3320_interface_reset_gpio_write(uint8_t data)
 void ld3320_interface_debug_print(const char *const fmt, ...)
 {
     char str[256];
-    uint16_t len;
     va_list args;
     
     memset((char *)str, 0, sizeof(char) * 256); 
@@ -276,6 +275,5 @@ void ld3320_interface_debug_print(const char *const fmt, ...)
     vsnprintf((char *)str, 255, (char const *)fmt, args);
     va_end(args);
     
-    len = strlen((char *)str);
-    (void)printf((uint8_t *)str, len);
+    (void)printf((uint8_t *)str);
 }
