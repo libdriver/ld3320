@@ -81,8 +81,8 @@ uint8_t ld3320_asr_init(void (*receive_callback)(uint8_t type, uint8_t index, ch
     DRIVER_LD3320_LINK_DELAY_MS(&gs_handle, ld3320_interface_delay_ms);
     DRIVER_LD3320_LINK_DELAY_US(&gs_handle, ld3320_interface_delay_us);
     DRIVER_LD3320_LINK_DEBUG_PRINT(&gs_handle, ld3320_interface_debug_print);
-    DRIVER_LD3320_LINK_DEBUG_RECEIVE_CALLBACK(&gs_handle, receive_callback);
-    DRIVER_LD3320_LINK_MP3_READ_INT(&gs_handle, ld3320_interface_mp3_init);
+    DRIVER_LD3320_LINK_RECEIVE_CALLBACK(&gs_handle, receive_callback);
+    DRIVER_LD3320_LINK_MP3_READ_INIT(&gs_handle, ld3320_interface_mp3_init);
     DRIVER_LD3320_LINK_MP3_READ_DEINT(&gs_handle, ld3320_interface_mp3_deinit);
     DRIVER_LD3320_LINK_MP3_READ(&gs_handle, ld3320_interface_mp3_read);
     

@@ -1626,7 +1626,7 @@ uint8_t ld3320_irq_handler(ld3320_handle_t *handle)
             handle->running_status = LD3320_STATUS_MP3_END;                                       /* set end */
         }
         else if (handle->point >= handle->size &&
-                 handle->running_status == LD3320_STATUS_ASR_RUNNING)                             /* check size */
+                 handle->running_status == LD3320_STATUS_MP3_RUNNING)                             /* check size */
         {
             res = a_ld3320_write_byte(handle, LD3320_REG_ASR_FORCE_STOP, 0x01);                   /* set asr force stop */
             if (res != 0)                                                                         /* check result */
@@ -1777,7 +1777,7 @@ uint8_t ld3320_start(ld3320_handle_t *handle)
             
             return 1;                                                            /* return error */
         }
-        volume = 5;
+        volume = 5;                                                              /* default 5 */
         volume =((15 - volume) & 0x0F) << 2;                                     /* get register data */
         res = a_ld3320_write_byte(handle, LD3320_REG_SPEAKER, volume | 0xC3);    /* set speaker volume */
         if (res != 0)                                                            /* check result */
@@ -1786,7 +1786,7 @@ uint8_t ld3320_start(ld3320_handle_t *handle)
             
             return 1;                                                            /* return error */
         }
-        res = a_ld3320_write_byte(handle, LD3320_REG_ANALOG_CONTROL1, 0x78);     /* enable control1 */
+        res = a_ld3320_write_byte(handle, LD3320_REG_ANALOG_CONTROL1, 0xFF);     /* enable control1 */
         if (res != 0)                                                            /* check result */
         {
             handle->debug_print("ld3320: set analog control1 failed.\n");        /* set analog control1 failed */
@@ -2013,39 +2013,47 @@ uint8_t ld3320_stop(ld3320_handle_t *handle)
 uint8_t ld3320_set_speaker_volume(ld3320_handle_t *handle, uint8_t volume)
 {
     uint8_t res;
+    uint8_t reg;
     
-    if (handle == NULL)                                                         /* check handle */
+    if (handle == NULL)                                                               /* check handle */
     {
-        return 2;                                                               /* return error */
+        return 2;                                                                     /* return error */
     }
-    if (handle->inited != 1)                                                    /* check handle initialization */
+    if (handle->inited != 1)                                                          /* check handle initialization */
     {
-        return 3;                                                               /* return error */
+        return 3;                                                                     /* return error */
     }
-    if (volume > 15)                                                            /* check volume */
+    if (volume > 15)                                                                  /* check volume */
     {
-        handle->debug_print("ld3320: volume is invalid.\n");                    /* volume is invalid */
+        handle->debug_print("ld3320: volume is invalid.\n");                          /* volume is invalid */
         
-        return 4;                                                               /* return error */
-    }
-    
-    volume =((15 - volume) & 0x0F) << 2;                                        /* get register data */
-    res = a_ld3320_write_byte(handle, LD3320_REG_SPEAKER, volume | 0xC3);       /* set speaker volume */
-    if (res != 0)                                                               /* check result */
-    {
-        handle->debug_print("ld3320: set speaker volume failed.\n");            /* set speaker volume failed */
-        
-        return 1;                                                               /* return error */
-    }
-    res = a_ld3320_write_byte(handle, LD3320_REG_ANALOG_CONTROL1, 0x78);        /* enable control1 */
-    if (res != 0)                                                               /* check result */
-    {
-        handle->debug_print("ld3320: set analog control1 failed.\n");           /* set analog control1 failed */
-        
-        return 1;                                                               /* return error */
+        return 4;                                                                     /* return error */
     }
     
-    return 0;                                                                   /* success return 0 */
+    volume =((15 - volume) & 0x0F) << 2;                                              /* get register data */
+    res = a_ld3320_write_byte(handle, LD3320_REG_SPEAKER, volume | 0xC3);             /* set speaker volume */
+    if (res != 0)                                                                     /* check result */
+    {
+        handle->debug_print("ld3320: set speaker volume failed.\n");                  /* set speaker volume failed */
+        
+        return 1;                                                                     /* return error */
+    }
+    res = a_ld3320_read_byte(handle, LD3320_REG_ANALOG_CONTROL1, &reg);               /* get control1 */
+    if (res != 0)                                                                     /* check result */
+    {
+        handle->debug_print("ld3320: get analog control1 failed.\n");                 /* get analog control1 failed */
+        
+        return 1;                                                                     /* return error */
+    }
+    res = a_ld3320_write_byte(handle, LD3320_REG_ANALOG_CONTROL1, reg | 0x08);        /* enable control1 */
+    if (res != 0)                                                                     /* check result */
+    {
+        handle->debug_print("ld3320: set analog control1 failed.\n");                 /* set analog control1 failed */
+        
+        return 1;                                                                     /* return error */
+    }
+    
+    return 0;                                                                         /* success return 0 */
 }
 
 /**
@@ -2102,53 +2110,62 @@ uint8_t ld3320_get_speaker_volume(ld3320_handle_t *handle, uint8_t *volume)
 uint8_t ld3320_set_headset_volume(ld3320_handle_t *handle, uint8_t volume_left, uint8_t volume_right)
 {
     uint8_t res;
+    uint8_t reg;
     
-    if (handle == NULL)                                                                     /* check handle */
+    if (handle == NULL)                                                               /* check handle */
     {
-        return 2;                                                                           /* return error */
+        return 2;                                                                     /* return error */
     }
-    if (handle->inited != 1)                                                                /* check handle initialization */
+    if (handle->inited != 1)                                                          /* check handle initialization */
     {
-        return 3;                                                                           /* return error */
+        return 3;                                                                     /* return error */
     }
-    if (volume_left > 15)                                                                   /* check volume_left */
+    if (volume_left > 31)                                                             /* check volume_left */
     {
-        handle->debug_print("ld3320: volume left is invalid.\n");                           /* volume left is invalid */
+        handle->debug_print("ld3320: volume left is invalid.\n");                     /* volume left is invalid */
         
-        return 4;                                                                           /* return error */
+        return 4;                                                                     /* return error */
     }
-    if (volume_right > 15)                                                                  /* check volume_right */
+    if (volume_right > 31)                                                            /* check volume_right */
     {
-        handle->debug_print("ld3320: volume right is invalid.\n");                          /* volume right is invalid */
+        handle->debug_print("ld3320: volume right is invalid.\n");                    /* volume right is invalid */
         
-        return 4;                                                                           /* return error */
-    }
-    
-    volume_left =((15 - volume_left) & 0x0F) << 2;                                          /* get register data */
-    res = a_ld3320_write_byte(handle, LD3320_REG_HEADSET_LEFT, volume_left | 0xC3);         /* set headset left volume */
-    if (res != 0)                                                                           /* check result */
-    {
-        handle->debug_print("ld3320: set headset left failed.\n");                          /* set headset left failed */
-        
-        return 1;                                                                           /* return error */
-    }
-    volume_right =((15 - volume_right) & 0x0F) << 2;                                        /* get register data */
-    res = a_ld3320_write_byte(handle, LD3320_REG_HEADSET_RIGHT, volume_right | 0xC3);       /* set headset right volume */
-    if (res != 0)                                                                           /* check result */
-    {
-        handle->debug_print("ld3320: set headset right failed.\n");                         /* set headset right failed */
-        
-        return 1;                                                                           /* return error */
-    }
-    res = a_ld3320_write_byte(handle, LD3320_REG_ANALOG_CONTROL1, 0x78);                    /* enable control1 */
-    if (res != 0)                                                                           /* check result */
-    {
-        handle->debug_print("ld3320: set analog control1 failed.\n");                       /* set analog control1 failed */
-        
-        return 1;                                                                           /* return error */
+        return 4;                                                                     /* return error */
     }
     
-    return 0;                                                                               /* success return 0 */
+    volume_left = ((31 - volume_left) & 0x1F) << 1;                                   /* get register data */
+    res = a_ld3320_write_byte(handle, LD3320_REG_HEADSET_LEFT, volume_left);          /* set headset left volume */
+    if (res != 0)                                                                     /* check result */
+    {
+        handle->debug_print("ld3320: set headset left failed.\n");                    /* set headset left failed */
+        
+        return 1;                                                                     /* return error */
+    }
+    volume_right = ((31 - volume_right) & 0x1F) << 1;                                 /* get register data */
+    res = a_ld3320_write_byte(handle, LD3320_REG_HEADSET_RIGHT, volume_right);        /* set headset right volume */
+    if (res != 0)                                                                     /* check result */
+    {
+        handle->debug_print("ld3320: set headset right failed.\n");                   /* set headset right failed */
+        
+        return 1;                                                                     /* return error */
+    }
+    
+    res = a_ld3320_read_byte(handle, LD3320_REG_ANALOG_CONTROL1, &reg);               /* get control1 */
+    if (res != 0)                                                                     /* check result */
+    {
+        handle->debug_print("ld3320: get analog control1 failed.\n");                 /* get analog control1 failed */
+        
+        return 1;                                                                     /* return error */
+    }
+    res = a_ld3320_write_byte(handle, LD3320_REG_ANALOG_CONTROL1, reg | 0x03);        /* enable control1 */
+    if (res != 0)                                                                     /* check result */
+    {
+        handle->debug_print("ld3320: set analog control1 failed.\n");                 /* set analog control1 failed */
+        
+        return 1;                                                                     /* return error */
+    }
+    
+    return 0;                                                                         /* success return 0 */
 }
 
 /**
@@ -2191,12 +2208,12 @@ uint8_t ld3320_get_headset_volume(ld3320_handle_t *handle, uint8_t *volume_left,
         
         return 1;                                                                   /* return error */
     }
-    *volume_left = (*volume_left) >> 2;                                             /* set left volume */
-    *volume_left = (*volume_left) & 0xF;                                            /* set left volume */
-    *volume_left = 15 - (*volume_left);                                             /* set left volume */
-    *volume_right = (*volume_right) >> 2;                                           /* set right volume */
-    *volume_right = (*volume_right) & 0xF;                                          /* set right volume */
-    *volume_right = 15 - (*volume_right);                                           /* set right volume */
+    *volume_left = (*volume_left) >> 1;                                             /* set left volume */
+    *volume_left = (*volume_left) & 0x1F;                                           /* set left volume */
+    *volume_left = 31 - (*volume_left);                                             /* set left volume */
+    *volume_right = (*volume_right) >> 1;                                           /* set right volume */
+    *volume_right = (*volume_right) & 0x1F;                                         /* set right volume */
+    *volume_right = 31 - (*volume_right);                                           /* set right volume */
     
     return 0;                                                                       /* success return 0 */
 }
