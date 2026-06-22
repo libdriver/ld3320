@@ -258,7 +258,7 @@ typedef struct ld3320_info_s
  * @param[in] FUC pointer to a receive_callback function address
  * @note      none
  */
-#define DRIVER_LD3320_LINK_DEBUG_RECEIVE_CALLBACK(HANDLE, FUC)        (HANDLE)->receive_callback = FUC
+#define DRIVER_LD3320_LINK_RECEIVE_CALLBACK(HANDLE, FUC)              (HANDLE)->receive_callback = FUC
 
 /**
  * @brief     link mp3_read_init function
@@ -266,7 +266,7 @@ typedef struct ld3320_info_s
  * @param[in] FUC pointer to an mp3_read_init function address
  * @note      none
  */
-#define DRIVER_LD3320_LINK_MP3_READ_INT(HANDLE, FUC)                  (HANDLE)->mp3_read_init = FUC
+#define DRIVER_LD3320_LINK_MP3_READ_INIT(HANDLE, FUC)                 (HANDLE)->mp3_read_init = FUC
 
 /**
  * @brief     link mp3_read_deinit function
