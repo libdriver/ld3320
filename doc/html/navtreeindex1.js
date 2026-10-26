@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"structld3320__handle__s.html#a8d6aa3b6556562d34ec088f58aac9b60":[0,0,1,0,0],
+"structld3320__handle__s.html#a8fa9dea40fcea29f4a932088941c942f":[0,0,1,0,11],
 "structld3320__handle__s.html#a95c8a4f3e083394c4e7d10c14ce094b7":[0,0,1,0,12],
 "structld3320__handle__s.html#a97ffc4fce945527bd6ab25a3596caef7":[0,0,1,0,3],
 "structld3320__handle__s.html#a9adb2481330acacfd7f6a04ce3310fab":[0,0,1,0,18],

@@ -24,7 +24,8 @@ var group__ld3320__basic__driver =
       [ "spi_read_address16", "structld3320__handle__s.html#a8662a3c5475cfc59e63e61b0a21fb28d", null ],
       [ "spi_write_cmd", "structld3320__handle__s.html#adac0200f9c9e205330090e0d34f605d5", null ],
       [ "text", "structld3320__handle__s.html#ae5ab68ff3daa710c5fdcfb58187562d8", null ],
-      [ "vad", "structld3320__handle__s.html#a2c7999a78c522275cb850b509e10bfc7", null ]
+      [ "vad", "structld3320__handle__s.html#a2c7999a78c522275cb850b509e10bfc7", null ],
+      [ "volume", "structld3320__handle__s.html#a14cc77262954756b30c251feabce7ea6", null ]
     ] ],
     [ "ld3320_info_s", "structld3320__info__s.html", [
       [ "chip_name", "structld3320__info__s.html#af890958c72bd715cc6454a10dc846ae6", null ],
@@ -38,6 +39,7 @@ var group__ld3320__basic__driver =
       [ "temperature_min", "structld3320__info__s.html#a8f9dbe66ac0b66ebae0a36fcb4ba368e", null ]
     ] ],
     [ "LD3320_CYSTAL_MHZ", "group__ld3320__basic__driver.html#ga78cb56cae762d906f38a0f1743d447ab", null ],
+    [ "LD3320_FIFO_DELAY_US", "group__ld3320__basic__driver.html#ga932a5a3251b8e43150be3e8643d73c5c", null ],
     [ "ld3320_handle_t", "group__ld3320__basic__driver.html#ga982eb6549db5e215b80c37a1de1a8a4c", null ],
     [ "ld3320_info_t", "group__ld3320__basic__driver.html#ga1b1cb26e9e604029001258c746a45709", null ],
     [ "ld3320_mic_gain_t", "group__ld3320__basic__driver.html#gaf8ff09d2615749f56110af343e7c0dcf", [

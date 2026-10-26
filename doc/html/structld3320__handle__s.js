@@ -23,5 +23,6 @@ var structld3320__handle__s =
     [ "spi_read_address16", "structld3320__handle__s.html#a8662a3c5475cfc59e63e61b0a21fb28d", null ],
     [ "spi_write_cmd", "structld3320__handle__s.html#adac0200f9c9e205330090e0d34f605d5", null ],
     [ "text", "structld3320__handle__s.html#ae5ab68ff3daa710c5fdcfb58187562d8", null ],
-    [ "vad", "structld3320__handle__s.html#a2c7999a78c522275cb850b509e10bfc7", null ]
+    [ "vad", "structld3320__handle__s.html#a2c7999a78c522275cb850b509e10bfc7", null ],
+    [ "volume", "structld3320__handle__s.html#a14cc77262954756b30c251feabce7ea6", null ]
 ];
