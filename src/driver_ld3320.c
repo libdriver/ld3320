@@ -549,7 +549,7 @@ static uint8_t a_ld3320_mp3_load(ld3320_handle_t *handle)
                 
                 return 1;                                                                          /* return error */
             }
-            handle->delay_us(60);                                                                  /* delay 60 us */
+            handle->delay_us(LD3320_FIFO_DELAY_US);                                                /* delay us */
             i++;                                                                                   /* i++ */
             handle->point++;                                                                       /* point++ */
             res = a_ld3320_read_byte(handle, LD3320_REG_FIFO_STATUS, (uint8_t *)&data);            /* read data */
@@ -560,19 +560,14 @@ static uint8_t a_ld3320_mp3_load(ld3320_handle_t *handle)
                 return 1;                                                                          /* return error */
             }
         }
-        if (!(data & 0x08))                                                                        /* check fifo full */
-        {
-            continue;                                                                              /* continue */
-        }
-        else
+        if ((data & 0x08) || (handle->point >= handle->size))                                      /* fifo full or end of file */
         {
             break;                                                                                 /* break */
         }
-    }
-    if (handle->point >= handle->size)                                                             /* check the size */
-    {
-        handle->running_status = LD3320_STATUS_NONE;                                               /* clear status */
-        handle->receive_callback(LD3320_STATUS_MP3_END, 0, NULL);                                  /* run the callback */
+        else
+        {
+            continue;                                                                              /* continue */
+        }
     }
     
     return 0;                                                                                      /* success return 0 */
@@ -1400,6 +1395,7 @@ uint8_t ld3320_init(ld3320_handle_t *handle)
         return 4;                                                            /* return error */
     }
     handle->mic_gain = LD3320_MIC_GAIN_COMMON;                               /* set mic gain common */
+    handle->volume = 5;                                                      /* set speaker volume */
     handle->vad = LD3320_VAD_COMMON;                                         /* set vad common */
     handle->running_status = LD3320_STATUS_NONE;                             /* set status none */
     handle->inited = 1;                                                      /* flag finished */
@@ -1527,7 +1523,7 @@ uint8_t ld3320_irq_handler(ld3320_handle_t *handle)
         res = a_ld3320_read_byte(handle, LD3320_REG_INT_FLAG, (uint8_t *)&flag);                  /* read int flag */
         if (res != 0)                                                                             /* check result */
         {
-            handle->running_status = LD3320_STATUS_ASR_ERROR;                                     /* set error */
+            handle->running_status = LD3320_STATUS_MP3_ERROR;                                     /* set error */
             handle->debug_print("ld3320: read int flag failed.\n");                               /* read int flag failed */
             
             return 1;                                                                             /* return error */
@@ -1644,7 +1640,8 @@ uint8_t ld3320_irq_handler(ld3320_handle_t *handle)
                 
                 return 1;                                                                         /* return error */
             }
-            handle->running_status = LD3320_STATUS_MP3_END;                                       /* set end */
+            
+            return 0;                                                                             /* wait for song end */
         }
         else
         {
@@ -1713,7 +1710,7 @@ uint8_t ld3320_irq_handler(ld3320_handle_t *handle)
     }
     else if (handle->running_status == LD3320_STATUS_MP3_LOAD)                                    /* mp3 load */
     {
-        handle->running_status = LD3320_STATUS_ASR_RUNNING;                                       /* clear status */
+        handle->running_status = LD3320_STATUS_MP3_RUNNING;                                       /* clear status */
         handle->receive_callback(LD3320_STATUS_MP3_LOAD, 0, NULL);                                /* run the callback */
     }
     else
@@ -1777,7 +1774,7 @@ uint8_t ld3320_start(ld3320_handle_t *handle)
             
             return 1;                                                            /* return error */
         }
-        volume = 5;                                                              /* default 5 */
+        volume = handle->volume;                                                 /* get saved volume */
         volume =((15 - volume) & 0x0F) << 2;                                     /* get register data */
         res = a_ld3320_write_byte(handle, LD3320_REG_SPEAKER, volume | 0xC3);    /* set speaker volume */
         if (res != 0)                                                            /* check result */
@@ -2030,6 +2027,7 @@ uint8_t ld3320_set_speaker_volume(ld3320_handle_t *handle, uint8_t volume)
         return 4;                                                                     /* return error */
     }
     
+    handle->volume = volume;                                                          /* save the volume */
     volume =((15 - volume) & 0x0F) << 2;                                              /* get register data */
     res = a_ld3320_write_byte(handle, LD3320_REG_SPEAKER, volume | 0xC3);             /* set speaker volume */
     if (res != 0)                                                                     /* check result */

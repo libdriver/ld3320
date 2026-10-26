@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['vad_0',['vad',['../structld3320__handle__s.html#a2c7999a78c522275cb850b509e10bfc7',1,'ld3320_handle_s']]]
+  ['vad_0',['vad',['../structld3320__handle__s.html#a2c7999a78c522275cb850b509e10bfc7',1,'ld3320_handle_s']]],
+  ['volume_1',['volume',['../structld3320__handle__s.html#a14cc77262954756b30c251feabce7ea6',1,'ld3320_handle_s']]]
 ];

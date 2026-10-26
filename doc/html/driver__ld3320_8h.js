@@ -16,6 +16,7 @@ var driver__ld3320_8h =
     [ "DRIVER_LD3320_LINK_SPI_READ_ADDRESS16", "group__ld3320__link__driver.html#ga43d5927c9857885bd93f402708fa4466", null ],
     [ "DRIVER_LD3320_LINK_SPI_WRITE_COMMAND", "group__ld3320__link__driver.html#gab0322624299c5fde2118c221d7aac695", null ],
     [ "LD3320_CYSTAL_MHZ", "group__ld3320__basic__driver.html#ga78cb56cae762d906f38a0f1743d447ab", null ],
+    [ "LD3320_FIFO_DELAY_US", "group__ld3320__basic__driver.html#ga932a5a3251b8e43150be3e8643d73c5c", null ],
     [ "ld3320_handle_t", "group__ld3320__basic__driver.html#ga982eb6549db5e215b80c37a1de1a8a4c", null ],
     [ "ld3320_info_t", "group__ld3320__basic__driver.html#ga1b1cb26e9e604029001258c746a45709", null ],
     [ "ld3320_mic_gain_t", "group__ld3320__basic__driver.html#gaf8ff09d2615749f56110af343e7c0dcf", [

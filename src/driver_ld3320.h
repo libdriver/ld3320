@@ -64,6 +64,13 @@ extern "C"{
 #endif
 
 /**
+ * @brief ld3320 fifo delay us definition
+ */
+#ifndef LD3320_FIFO_DELAY_US 
+    #define LD3320_FIFO_DELAY_US        1        /* 1us */
+#endif
+
+/**
  * @brief ld3320 mode enumeration definition
  */
 typedef enum
@@ -135,6 +142,7 @@ typedef struct ld3320_handle_s
     uint32_t point;                                                                  /**< mp3 play point */
     uint32_t size;                                                                   /**< mp3 size */
     uint8_t buf[512];                                                                /**< buffer */
+    uint8_t volume;                                                                  /**< volume */
 } ld3320_handle_t;
 
 /**
